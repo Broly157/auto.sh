@@ -16,7 +16,7 @@
 #---------------------------------------------------------------
 mkdir ~/recondata/automatd/$1
 cd ~/recondata/automatd/$1
-#amass enum -passive -d $1 -o ~/recondata/automatd/$1/amass.txt
+amass enum -passive -d $1 -o ~/recondata/automatd/$1/amass.txt
 findomain -t $1 -u ~/recondata/automatd/$1/findomain.txt 
 assetfinder --subs-only $1 > ~/recondata/automatd/$1/asset.txt
 subfinder -d $1 > ~/recondata/automatd/$1/subfinder.txt
