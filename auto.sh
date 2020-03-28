@@ -13,7 +13,11 @@
 #go get -u github.com/theblackturtle/fprobe
 #git clone https://github.com/michenriksen/aquatone.git
 #mv every tool in your /usr/bin (except Sublist3r,aquatone {you have to give their location to use them perfectly})
-#---------------------------------------------------------------
+#Note: in case of massdns after downloading it for git 
+#1. do make , then cp the massdns to /usr/bin and copy /lists/resolvers.txt to /usr/share/wordlists/resolvers.txt
+#Note: here mass dns will only work for subdomain Enumeration
+#------------------------------------------------------------------------------------------------------------------
+
 mkdir ~/recondata/automatd/$1
 cd ~/recondata/automatd/$1
 amass enum -passive -d $1 -o ~/recondata/automatd/$1/amass.txt
@@ -23,6 +27,9 @@ subfinder -d $1 > ~/recondata/automatd/$1/subfinder.txt
 python ~/tools/Sublist3r/sublist3r.py -d $1 -o ~/recondata/automatd/$1/sublist3r.txt
 curl https://crt.sh/?q=%.$1 | grep "rms.com" | cut -d '>' -f2 | cut -d '<' -f1 | grep -v " " | sort -u > ~/recondata/automatd/$1/crt.txt
 curl https://certspotter.com/api/v0/certs?domain=$1 | grep  -o '\[\".*\"\]' > ~/recondata/automatd/$1/certspotter{ManualCheck}.txt
+massdns -r /usr/share/wordlists/resolvers.txt -t A -o S ~/recondata/automatd/$1/all.txt -w ~/recondata/automatd/$1/massdns.txt
+sed 's/A.*//' ~/recondata/automatd/$1/massdns.txt | sed 's/CN.*//' | sed 's/\..$//' > Subdomain_mass.txt
+rm ~/recondata/automatd/$1/massdns.txt
 cat ~/recondata/automatd/$1/*.txt | sort -u >> ~/recondata/automatd/$1/all.txt
 cat ~/recondata/automatd/$1/all.txt | sort | filter-resolved | httprobe -c 40 > ~/recondata/automatd/$1/alive.txt
 cat ~/recondata/automatd/$1/alive.txt | fprobe -c 40 -v | grep ":200," > ~/recondata/automatd/$1/fprobe200.txt
