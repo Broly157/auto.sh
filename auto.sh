@@ -1,5 +1,3 @@
-mkdir ~/recondata/automatd/$1
-cd ~/recondata/automatd/$1
 #-------------------------------------------------------------
 #
 #Remove "#" if need to install any of this tools
@@ -14,7 +12,10 @@ cd ~/recondata/automatd/$1
 #go get github.com/tomnomnom/hacks/filter-resolved
 #go get -u github.com/theblackturtle/fprobe
 #git clone https://github.com/michenriksen/aquatone.git
+#mv every tool in your /usr/bin (except Sublist3r,aquatone {you have to give their location to use them perfectly})
 #---------------------------------------------------------------
+mkdir ~/recondata/automatd/$1
+cd ~/recondata/automatd/$1
 #amass enum -passive -d $1 -o ~/recondata/automatd/$1/amass.txt
 findomain -t $1 -u ~/recondata/automatd/$1/findomain.txt 
 assetfinder --subs-only $1 > ~/recondata/automatd/$1/asset.txt
