@@ -23,7 +23,7 @@ findomain -t $1 -u ~/recondata/automatd/$1/findings/findomain.txt
 assetfinder --subs-only $1 > ~/recondata/automatd/$1/findings/asset.txt
 subfinder -d $1 > ~/recondata/automatd/$1/findings/subfinder.txt
 python ~/tools/Sublist3r/sublist3r.py -d $1 -o ~/recondata/automatd/$1/findings/sublist3r.txt
-curl https://crt.sh/?q=%.$1 | grep "rms.com" | cut -d '>' -f2 | cut -d '<' -f1 | grep -v " " | sort -u > ~/recondata/automatd/$1/findings/crt.txt
+curl https://crt.sh/?q=%.$1 | grep "$1" | cut -d '>' -f2 | cut -d '<' -f1 | grep -v " " | sort -u > ~/recondata/automatd/$1/findings/crt.txt
 cd ../~/recondata/automatd/$1/final
 cat ~/recondata/automatd/$1/findings/*.txt | sort -u >> ~/recondata/automatd/$1/findings/all.txt
 massdns -r /usr/share/wordlists/resolvers.txt -t A -o S ~/recondata/automatd/$1/findings/all.txt -w ~/recondata/automatd/$1/findings/massdns.txt
