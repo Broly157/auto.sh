@@ -15,7 +15,7 @@ cd ~/recondata/automatd/$1
 #go get -u github.com/theblackturtle/fprobe
 #git clone https://github.com/michenriksen/aquatone.git
 #---------------------------------------------------------------
-#amass enum -d $1 >  ~/recondata/automatd/$1/amass.txt
+#amass enum -passive -d $1 -o ~/recondata/automatd/$1/amass.txt
 findomain -t $1 -u ~/recondata/automatd/$1/findomain.txt 
 assetfinder --subs-only $1 > ~/recondata/automatd/$1/asset.txt
 subfinder -d $1 > ~/recondata/automatd/$1/subfinder.txt
