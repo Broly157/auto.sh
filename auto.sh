@@ -19,18 +19,33 @@ mkdir ~/recondata/automatd/$1
 mkdir ~/recondata/automatd/$1/findings
 mkdir ~/recondata/automatd/$1/final
 cd ~/recondata/automatd/$1/findings
-amass enum -passive -d $1 -o ~/recondata/automatd/$1/findings/amass.txt
-findomain -t $1 -u ~/recondata/automatd/$1/findings/findomain.txt 
-assetfinder --subs-only $1 > ~/recondata/automatd/$1/findings/asset.txt
-subfinder -d $1 > ~/recondata/automatd/$1/findings/subfinder.txt
-python ~/tools/Sublist3r/sublist3r.py -d $1 -o ~/recondata/automatd/$1/findings/sublist3r.txt
-curl https://crt.sh/?q=%.$1 | grep "$1" | cut -d '>' -f2 | cut -d '<' -f1 | grep -v " " | sort -u > ~/recondata/automatd/$1/findings/crt.txt
-cd ../~/recondata/automatd/$1/final
-cat ~/recondata/automatd/$1/findings/*.txt | sort -u >> ~/recondata/automatd/$1/findings/all.txt
-massdns -r /usr/share/wordlists/resolvers.txt -t A -o S ~/recondata/automatd/$1/findings/all.txt -w ~/recondata/automatd/$1/findings/massdns.txt
-sed 's/A.*//' ~/recondata/automatd/$1/massdns.txt | sed 's/CN.*//' | sed 's/\..$//' > ~/recondata/automatd/$1/findings/Subdomain_mass.txt
-rm ~/recondata/automatd/$1/findings/massdns.txt
-massdns -r /usr/share/wordlists/resolvers.txt -w ~/recondata/automatd/$1/final/massdns-op.txt ~/recondata/automatd/$1/findings/all.txt
-cat ~/recondata/automatd/$1/findings/all.txt | sort | filter-resolved | httprobe -c 40 > ~/recondata/automatd/$1/final/alive.txt
-cat ~/recondata/automatd/$1/final/alive.txt | fprobe -c 40 -v | grep ":200," > ~/recondata/automatd/$1/final/fprobe200.txt
-cat ~/recondata/automatd/$1/final/alive.txt | aquatone -scan-timeout 500 -screenshot-timeout 40000 -out ~/recondata/automatd/$1/final/$1
+echo "Amass Scanning started"
+amass enum -passive -d $1 -o ~/recondata/automatd/$1/findings/amass.txt\n
+echo "Findomain Scanning started"
+findomain -t $1 -u ~/recondata/automatd/$1/findings/findomain.txt\n 
+echo "Assetfinder Scanning started"
+assetfinder --subs-only $1 > ~/recondata/automatd/$1/findings/asset.txt\n
+echo "Subfinder Scanning started"
+subfinder -d $1 > ~/recondata/automatd/$1/findings/subfinder.txt\n
+echo "Sublist3r Scanning started"
+python ~/tools/Sublist3r/sublist3r.py -d $1 -o ~/recondata/automatd/$1/findings/sublist3r.txt\n
+echo "Crt.sh Scanning started"
+curl https://crt.sh/?q=%.$1 | grep "$1" | cut -d '>' -f2 | cut -d '<' -f1 | grep -v " " | sort -u > ~/recondata/automatd/$1/findings/crt.txt\n
+echo "Moving into folder _Final_"
+cd ../~/recondata/automatd/$1/final\n
+echo "Creating All.txt"
+cat ~/recondata/automatd/$1/findings/*.txt | sort -u >> ~/recondata/automatd/$1/findings/all.txt\n
+echo "Massdns Scanning started"
+massdns -r /usr/share/wordlists/resolvers.txt -t A -o S ~/recondata/automatd/$1/findings/all.txt -w ~/recondata/automatd/$1/findings/massdns.txt\n
+echo "Extracting subdomains from massdns.txt"
+sed 's/A.*//' ~/recondata/automatd/$1/massdns.txt | sed 's/CN.*//' | sed 's/\..$//' > ~/recondata/automatd/$1/findings/Subdomain_mass.txt\n
+echo "Removing massdns.txt" 
+rm ~/recondata/automatd/$1/findings/massdns.txt\n
+echo "Plain massdns Scanning"
+massdns -r /usr/share/wordlists/resolvers.txt -w ~/recondata/automatd/$1/final/massdns-op.txt ~/recondata/automatd/$1/findings/all.txt\n
+echo "Searching for alive subdomains"
+cat ~/recondata/automatd/$1/findings/all.txt | sort | filter-resolved | httprobe -c 40 > ~/recondata/automatd/$1/final/alive.txt\n
+echo "fprobe Scanning started"
+cat ~/recondata/automatd/$1/final/alive.txt | fprobe -c 40 -v | grep ":200," > ~/recondata/automatd/$1/final/fprobe200.txt\n
+echo "Aquatone Started"
+cat ~/recondata/automatd/$1/final/alive.txt | aquatone -scan-timeout 500 -screenshot-timeout 40000 -out ~/recondata/automatd/$1/final/$1#
