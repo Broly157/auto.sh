@@ -49,5 +49,7 @@ echo "fprobe Scanning started"
 cat ~/recondata/automatd/$1/final/alive.txt | fprobe -c 40 -v | grep ":200," > ~/recondata/automatd/$1/final/fprobe200.txt
 echo "Finding CNAME"
 cat  ~/recondata/automatd/$1/findings/all.txt | xargs -n 1 -I{} host -t CNAME {} > ~/recondata/automatd/$1/final/CNAME.txt
+echo "Scanning for CORS"
+cors.sh ~/recondata/automatd/$1/final/alive.txt > ~/recondata/automatd/$1/final/CORS.txt
 echo "Aquatone Started"
 cat ~/recondata/automatd/$1/final/alive.txt | aquatone -scan-timeout 500 -screenshot-timeout 40000 -out ~/recondata/automatd/$1/final/$1
