@@ -20,7 +20,7 @@ mkdir ~/recondata/automatd/$1/findings
 mkdir ~/recondata/automatd/$1/final
 cd ~/recondata/automatd/$1/findings
 echo "Amass Scanning started"
-amass enum -passive -d $1 -o ~/recondata/automatd/$1/findings/amass.txt
+amass enum --passive -d $1 -o ~/recondata/automatd/$1/findings/amass.txt
 echo "Findomain Scanning started"
 findomain -t $1 -u ~/recondata/automatd/$1/findings/findomain.txt
 echo "Assetfinder Scanning started"
@@ -30,7 +30,7 @@ subfinder -d $1 > ~/recondata/automatd/$1/findings/subfinder.txt
 echo "Sublist3r Scanning started"
 python ~/tools/Sublist3r/sublist3r.py -d $1 -o ~/recondata/automatd/$1/findings/sublist3r.txt
 echo "Crt.sh Scanning started"
-curl https://crt.sh/?q=%.$1 | grep "$1" | cut -d '>' -f2 | cut -d '<' -f1 | grep -v " " | sort -u > ~/recondata/automatd/$1/findings/crt.txt
+curl -s https://crt.sh/\?q\=\%.$1\&output\=json | jq -r '.[].name_value' | sed 's/\*\.//g' | sort -u > ~/recondata/automatd/$1/findings/crt.txt
 echo "Moving into folder _Final_"
 cd ../~/recondata/automatd/$1/final
 echo "Creating All.txt"
@@ -43,7 +43,7 @@ echo "Removing massdns.txt"
 rm ~/recondata/automatd/$1/findings/massdns.txt
 echo "Plain massdns Scanning"
 massdns -r /usr/share/wordlists/resolvers.txt -w ~/recondata/automatd/$1/final/massdns-op.txt ~/recondata/automatd/$1/findings/all.txt
-echo "Searching for alive subdomains"
+echo "\n\n[+] Checking for alive domains..\n"
 cat ~/recondata/automatd/$1/findings/all.txt | sort | filter-resolved | httprobe -c 40 > ~/recondata/automatd/$1/final/alive.txt
 echo "fprobe Scanning started"
 cat ~/recondata/automatd/$1/final/alive.txt | fprobe -c 40 -v | grep ":200," > ~/recondata/automatd/$1/final/fprobe200.txt
