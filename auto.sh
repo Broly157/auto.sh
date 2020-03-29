@@ -38,7 +38,7 @@ cat ~/recondata/automatd/$1/findings/*.txt | sort -u >> ~/recondata/automatd/$1/
 echo "Massdns Scanning started"
 massdns -r /usr/share/wordlists/resolvers.txt -t A -o S ~/recondata/automatd/$1/findings/all.txt -w ~/recondata/automatd/$1/findings/massdns.txt
 echo "Extracting subdomains from massdns.txt"
-sed 's/A.*//' ~/recondata/automatd/$1/massdns.txt | sed 's/CN.*//' | sed 's/\..$//' > ~/recondata/automatd/$1/findings/Subdomain_mass.txt
+sed 's/A.*//' ~/recondata/automatd/$1/findings/massdns.txt | sed 's/CN.*//' | sed 's/\..$//' > ~/recondata/automatd/$1/findings/Subdomain_mass.txt
 echo "Removing massdns.txt" 
 rm ~/recondata/automatd/$1/findings/massdns.txt
 echo "Plain massdns Scanning"
