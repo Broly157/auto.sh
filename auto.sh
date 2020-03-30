@@ -40,7 +40,7 @@ echo "Certspotter Scanning started"
 echo "Moving into folder _Final_"
 	cd ../~/recondata/automatd/$1/final
 echo "Creating All.txt"
-	cat ~/recondata/automatd/$1/findings/*.txt | sort -u >> ~/recondata/automatd/$1/findings/all.txt
+	cat ~/recondata/automatd/$1/findings/*.txt | rev | cut -d "."  -f 1,2,3 | sort -u | rev | tee -a ~/recondata/automatd/$1/findings/all.txt
 echo "Massdns Scanning started"
 	massdns -r /usr/share/wordlists/resolvers.txt -t A -o S ~/recondata/automatd/$1/findings/all.txt -w ~/recondata/automatd/$1/findings/massdns.txt
 echo "Extracting subdomains from massdns.txt"
