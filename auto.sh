@@ -13,6 +13,7 @@
 #go get github.com/tomnomnom/hacks/filter-resolved
 #go get -u github.com/theblackturtle/fprobe
 #git clone https://github.com/michenriksen/aquatone.git
+#cd && curl --url https://raw.githubusercontent.com/tomnomnom/dotfiles/master/scripts/acao > cors.sh && mv cors.sh /usr/bin && cd /usr/bin && chmod +x cors.sh (for install script of CORS)
 #NOTE:even after installing every tools listed above if the script didn't seems working it's probably becoz of amass try using it on the different terminal
 #----------------------------------------------------------------------------------------------------------------------------------------------------------
 mkdir ~/recondata/automatd/$1
