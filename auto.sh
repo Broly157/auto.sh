@@ -29,7 +29,7 @@ echo "Assetfinder Scanning started"
 echo "Subfinder Scanning started"
 	subfinder -d $1 > ~/recondata/automatd/$1/findings/subfinder.txt
 echo "Sublist3r Scanning started"
-	python ~/tools/Sublist3r/sublist3r.py -v -t 15 -b -d $1 -o ~/recondata/automatd/$1/findings/sublist3r.txt
+	python ~/tools/Sublist3r/sublist3r.py -v -t 15 -d $1 -o ~/recondata/automatd/$1/findings/sublist3r.txt
 echo "Crt.sh Scanning started"
 	curl -s https://crt.sh/\?q\=\%.$1\&output\=json | jq -r '.[].name_value' | sed 's/\*\.//g' | sort -u | tee -a ~/recondata/automatd/$1/findings/crt.txt
 	cat ~/recondata/automatd/$1/findings/crt.txt | rev | cut -d "."  -f 1,2,3 | sort -u | rev | tee -a ~/recondata/automatd/$1/findings/crtsh.txt
@@ -40,22 +40,24 @@ echo "Certspotter Scanning started"
 echo "Moving into folder _Final_"
 	cd ../~/recondata/automatd/$1/final
 echo "Creating Allrootdomains.txt"
-	cat ~/recondata/automatd/$1/findings/*.txt | rev | cut -d "."  -f 1,2,3 | sort -u | rev | tee -a ~/recondata/automatd/$1/findings/allrootdomains.txt 	
+	cat ~/recondata/automatd/$1/findings/*.txt | rev | cut -d "."  -f 1,2,3 | sort -u | rev | tee -a ~/recondata/automatd/$1/findings/allrootsubdomains.txt
+echo "Finding 3/4th Tier of Subdomains"
+	cat ~/recondata/automatd/$1/findings/allrootsubdomains.txt | xargs -n 1 -I{} curl -s https://crt.sh/\?q\=\%.{}\&output\=json | jq -r '.[].name_value' | sed 's/\*\.//g' | sort -u | tee > ~/recondata/automatd/$1/findings/subsubdomains.txt
 echo "Massdns Scanning started"
-	massdns -r /usr/share/wordlists/resolvers.txt -t A -o S ~/recondata/automatd/$1/findings/allrootdomains.txt -w ~/recondata/automatd/$1/findings/massdns.txt
+	massdns -r /usr/share/wordlists/resolvers.txt -t A -o S ~/recondata/automatd/$1/findings/allrootsubdomains.txt -w ~/recondata/automatd/$1/findings/massdns.txt
 echo "Extracting subdomains from massdns.txt"
 	sed 's/A.*//' ~/recondata/automatd/$1/findings/massdns.txt | sed 's/CN.*//' | sed 's/\..$//' > ~/recondata/automatd/$1/findings/Subdomain_mass.txt
 echo "Removing massdns.txt" 
 	rm ~/recondata/automatd/$1/findings/massdns.txt
 echo "Plain massdns Scanning"
-	massdns -r /usr/share/wordlists/resolvers.txt -w ~/recondata/automatd/$1/final/massdns-op.txt ~/recondata/automatd/$1/findings/all.txt
+	massdns -r /usr/share/wordlists/resolvers.txt -w ~/recondata/automatd/$1/final/massdns-op.txt ~/recondata/automatd/$1/findings/allrootsubdomains.txt
 echo "\n\n[+] Checking for alive domains..\n"
-	cat ~/recondata/automatd/$1/findings/allrootdomains.txt | sort | filter-resolved | httprobe -c 40 > ~/recondata/automatd/$1/final/alive.txt
+	cat ~/recondata/automatd/$1/findings/allrootsubdomains.txt | sort | filter-resolved | httprobe -c 40 > ~/recondata/automatd/$1/final/alive.txt
 echo "fprobe Scanning started"
 	cat ~/recondata/automatd/$1/final/alive.txt | fprobe -c 40 -v | grep ":200," > ~/recondata/automatd/$1/final/fprobe200.txt
-echo "Finding CNAME"
-	cat  ~/recondata/automatd/$1/findings/allrootdomains.txt | xargs -n 1 -I{} host -t CNAME {} > ~/recondata/automatd/$1/final/CNAME.txt
-echo "Scanning for CORS"
-	cors.sh ~/recondata/automatd/$1/final/alive.txt > ~/recondata/automatd/$1/final/CORS.txt
 echo "Aquatone Started"
 	cat ~/recondata/automatd/$1/final/alive.txt | aquatone -scan-timeout 500 -screenshot-timeout 40000 -out ~/recondata/automatd/$1/final/$1
+echo "Finding CNAME"
+	cat  ~/recondata/automatd/$1/findings/allrootsubdomains.txt | xargs -n 1 -I{} host -t CNAME {} > ~/recondata/automatd/$1/final/CNAME.txt
+echo "Scanning for CORS"
+       cors.sh ~/recondata/automatd/$1/final/alive.txt > ~/recondata/automatd/$1/final/CORS.txt
