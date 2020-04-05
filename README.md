@@ -12,7 +12,7 @@ I wrote this Script for myself for my Recon, but then i thought as i learn from 
 I have just collected all the tool's that i found Best for doing the Recon Part of your Hunting. 
 So that we can get some time to do some manual recon by our own.
 
-I have listed the Name of the Owner of the Tools and their Twitter Handle.
+I have listed the Name of the Owner of the Tools and their Twitter Handle.(In install.sh)
 
 I hope you all will find this useful in your Hunting. 
 
