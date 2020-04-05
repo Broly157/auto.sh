@@ -7,7 +7,7 @@ Usage
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-I wrote this Script for myself for my Recon, but then i thought as i learn from the community, so i should give back to community, to help beginner for starting in Infosec Community. 
+I wrote this Script for myself for my Recon, but then i thought as i learn from the community, so i should give back to community, to help beginner who are starting in Infosec Community. 
 
 I have just collected all the tool's that i found Best for doing the Recon Part of your Hunting. 
 So that we can get some time to do some manual recon by our own.
