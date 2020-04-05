@@ -29,7 +29,7 @@ echo "Assetfinder Scanning started"
 echo "Subfinder Scanning started"
 	subfinder -d $1 > subfinder.txt
 echo "Sublist3r Scanning started"
-	python ~/tools/Sublist3r/sublist3r.py -v -t 15 -d $1 -o sublist3r.txt
+	python ~/Broly/tools/Sublist3r/sublist3r.py -v -t 15 -d $1 -o sublist3r.txt
 echo "Crt.sh Scanning started"
 	curl -s https://crt.sh/\?q\=\%.$1\&output\=json | jq -r '.[].name_value' | sed 's/\*\.//g' | sort -u | tee -a crt.txt
 	cat crt.txt | rev | cut -d "."  -f 1,2,3 | sort -u | rev | tee -a crtsh.txt
