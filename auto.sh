@@ -55,26 +55,8 @@ echo "Plain massdns Scanning"
 	massdns -r /usr/share/wordlists/resolvers.txt -w massdns-op.txt ~/recondata/automatd/$1/findings/allrootsubdomains.txt
 echo "Checking for alive domains"
 	cat ~/recondata/automatd/$1/findings/allrootsubdomains.txt | sort -u | filter-resolved | httprobe -c 40 > alive.txt
-echo "Creating Header and Response body"	
-	response.sh alive.txt 
-echo "Extracting JS files from Header and Response body"	
-	cp /usr/bin/jsfiles.sh ~/recondata/automatd/$1/final
-	jsfiles.sh 
-#------------------------------------------------------------------------------------------------------------------------------------------
-echo "Extracting endpoints from JS files"
-#------------------------------------------------------------------------------------------------------------------------------------------
-	rm jsfiles.sh
-	endpoints.sh
-	cd endpoints
-for domain in $(ls ~/recondata/automatd/$1/final/endpoints)
-		do
-        		for file in $(ls ~/recondata/automatd/$1/final/endpoints/$domain)
-        	do 
-                	find . -name '*.js' -exec cat {} \; >> ~/recondata/automatd/$1/final/endpoints/$domain/allendpoints.txt
-        	done
-		done
-		cd ../
-#--------------------------------------------------------------------------------------------------------------------------------------------		
+echo "JScanning started"
+	bash JSfileScanner.sh
 echo "fprobe Scanning started"
 	cat alive.txt | fprobe -c 40 -v | grep ":200," > fprobe200.txt
 echo "Aquatone Started"
