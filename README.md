@@ -5,7 +5,7 @@ To install the required tools use
 Usage 
 `./auto.sh "domain.com"`
 
-----------—------—–-----—-——————-————-------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 I wrote this Script for myself for my Recon, but then i thought as i learn from the community, so i should give back to community, to help beginner for starting in Infosec Community. 
 
