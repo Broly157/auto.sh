@@ -16,7 +16,7 @@ I have listed the Name of the Owner of the Tools and their Twitter Handle.(In in
 
 I hope you all will find this useful in your Hunting. 
 
-Any suggestions for me to do any upgrades in this tool is Highly Appreciated. (https://mobile.twitter.com/Broly157) 
+Any suggestions for me to do any upgrades in this Script is Highly Appreciated. (https://mobile.twitter.com/Broly157) 
 
 Thanks 
 Enjoy. 
