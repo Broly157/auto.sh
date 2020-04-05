@@ -1,6 +1,6 @@
 #!/bin/bash
-mkdir scripts
-mkdir scriptsresponse
+mkdir Jscriptslinks
+mkdir Jscriptsresponse
 
 RED='\033[0;31m'
 NC='\033[0m'
@@ -13,14 +13,14 @@ do
         for end_point in $END_POINTS
         do
                 len=$(echo $end_point | grep "http" | wc -c)
-                mkdir "scriptsresponse/$x/"
+                mkdir "Jscriptsresponse/$x/"
                 URL=$end_point
                 if [ $len == 0 ]
                 then
                         URL="https://$x$end_point"
                 fi
                 file=$(basename $end_point)
-                curl -X GET $URL -L > "scriptsresponse/$x/$file"
-                echo $URL >> "scripts/$x"
+                curl -X GET $URL -L > "Jscriptsresponse/$x/$file"
+                echo $URL >> "Jscriptslinks/$x"
         done
 done
