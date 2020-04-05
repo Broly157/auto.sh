@@ -4,12 +4,12 @@ mkdir endpoints
 
 CUR_DIR=$(pwd)
 
-for domain in $(ls scriptsresponse)
+for domain in $(ls Jscriptsresponse)
 do
         #looping through files in each domain
         mkdir endpoints/$domain
-        for file in $(ls scriptsresponse/$domain)
+        for file in $(ls Jscriptsresponse/$domain)
         do
-                ruby ~/relative-url-extractor/extract.rb scriptsresponse/$domain/$file >> endpoints/$domain/$file 
+                ruby ~/relative-url-extractor/extract.rb Jscriptsresponse/$domain/$file >> endpoints/$domain/$file 
         done
 done
