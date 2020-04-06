@@ -52,7 +52,7 @@ echo "JScanning started"
 echo "fprobe Scanning started"
 	cat alive.txt | fprobe -c 40 -v | grep ":200," > fprobe200.txt
 echo "Aquatone Started"
-	cat alive.txt | aquatone -scan-timeout 500 -screenshot-timeout 40000 -out $1
+	cat alive.txt | aquatone -out $1
 echo "Finding CNAME"
 	cat  ~/recondata/automatd/$1/findings/allrootsubdomains.txt | xargs -n 1 -I{} host -t CNAME {} > CNAME.txt
 echo "Scanning for CORS"
