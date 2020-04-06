@@ -1,5 +1,9 @@
 #!/bin/bash
 
+chmod +x auto.sh
+eho "auto.sh Ready to use"
+#----------------------------------------------------------#
+echo "Now installing important Tools"
 mkdir ~/Broly
 cd ~/Broly
 apt-get install amass #(By Danielmiessler) https://twitter.com/DanielMiessler?s=20
