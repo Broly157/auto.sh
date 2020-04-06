@@ -1,7 +1,7 @@
 #!/bin/bash
 
 chmod +x auto.sh
-eho "auto.sh Ready to use"
+echo "auto.sh Ready to use"
 #----------------------------------------------------------#
 echo "Now installing important Tools"
 mkdir ~/Broly
