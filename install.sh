@@ -26,7 +26,7 @@ curl --url https://raw.githubusercontent.com/tomnomnom/dotfiles/master/scripts/a
 apt install wget -y
 #------------------------------------------------------------#
 echo "Installing Findomain"
-cd findomain
+cd ~/Broly/findomain
 cargo build --release
 cp target/release/findomain /usr/bin/
 #-------------------------------------------------------------#
