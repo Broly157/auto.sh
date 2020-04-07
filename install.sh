@@ -1,7 +1,11 @@
 #!/bin/bash
 
 chmod +x auto.sh
+cp auto.sh /usr/bin
 echo "auto.sh Ready to use"
+#-------------------------------------------------------------#
+echo "Copying JSfileScanner.sh > /usr/bin (By dark_warlord14) https://twitter.com/dark_warlord14?s=20" #You can find the article related to this script here https://securityjunky.com/scanning-js-files-for-endpoint-and-secrets/ 
+cp JSfileScanner.sh /usr/bin
 #----------------------------------------------------------#
 echo "Now installing important Tools"
 mkdir ~/Broly
@@ -35,8 +39,5 @@ echo "Installing Linkfinder"
 cd ~/Broly/LinkFinder
 pip3 install -r requirements.txt
 python3 setup.py install
-#-------------------------------------------------------------#
-echo "Copying JSfileScanner.sh > /usr/bin (By dark_warlord14) https://twitter.com/dark_warlord14?s=20" #You can find the article related to this script here https://securityjunky.com/scanning-js-files-for-endpoint-and-secrets/ 
-cp JSfileScanner.sh /usr/bin
 #-------------------------------------------------------------#
 echo "Installation Completed,You are Good to Go ;)"
