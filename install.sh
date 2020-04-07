@@ -32,7 +32,8 @@ cp findomain /usr/bin
 #-------------------------------------------------------------#
 echo "Installing Massdns"
 cd ~/Broly/massdns
-make
+make 
+cp /lists/resolvers.txt /usr/share/wordlists/resolvers.txt
 cp /bin/massdns /usr/bin
 #-------------------------------------------------------------#
 echo "Installing Linkfinder"
