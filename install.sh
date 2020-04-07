@@ -6,7 +6,7 @@ echo "auto.sh Ready to use"
 echo "Now installing important Tools"
 mkdir ~/Broly
 cd ~/Broly
-apt-get install amass #(By Danielmiessler) https://twitter.com/DanielMiessler?s=20
+apt-get install amass #(By Danielmiessler) https://twitter.com/DanielMiessler?s=20 | https://twitter.com/jeff_foley?s=20 | https://twitter.com/owasp?s=20
 git clone https://github.com/Edu4rdSHL/findomain.git #(By Edu4rdSHL) https://twitter.com/Edu4rdSHL?s=20
 go get -u github.com/tomnomnom/assetfinder #(By Tomnomnom) https://twitter.com/TomNomNom?s=20
 go get -v github.com/projectdiscovery/subfinder/cmd/subfinder #(By projectdiscovery)
