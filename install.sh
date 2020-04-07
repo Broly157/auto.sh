@@ -28,7 +28,7 @@ apt install wget -y
 echo "Installing Findomain"
 cd findomain
 cargo build --release
-cp findomain /usr/bin
+cp target/release/findomain /usr/bin/
 #-------------------------------------------------------------#
 echo "Installing Massdns"
 cd ~/Broly/massdns
