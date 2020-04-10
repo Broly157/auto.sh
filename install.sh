@@ -13,6 +13,7 @@ cd ~/Broly
 apt-get install amass #(By Danielmiessler) https://twitter.com/DanielMiessler?s=20 | https://twitter.com/jeff_foley?s=20 | https://twitter.com/owaspamass?s=20
 git clone https://github.com/Edu4rdSHL/findomain.git #(By Edu4rdSHL) https://twitter.com/Edu4rdSHL?s=20
 go get -u github.com/tomnomnom/assetfinder #(By Tomnomnom) https://twitter.com/TomNomNom?s=20
+go get -u github.com/edoverflow/csp #(By Tomnomnom) https://twitter.com/TomNomNom?s=20
 go get -v github.com/projectdiscovery/subfinder/cmd/subfinder #(By projectdiscovery)
 git clone https://github.com/blechschmidt/massdns.git #(By blechschmidt) 
 git clone https://github.com/aboul3la/Sublist3r.git #(By aboul3la) https://twitter.com/aboul3la?s=20
@@ -24,6 +25,7 @@ git clone https://github.com/dark-warlord14/LinkFinder #(By GerbenJavado) https:
 curl --url https://raw.githubusercontent.com/tomnomnom/dotfiles/master/scripts/acao > cors.sh && mv cors.sh /usr/bin && cd /usr/bin && chmod +x cors.sh #(By Tomnomnom) https://twitter.com/TomNomNom?s=20
 #------------------------------------------------------------#
 apt install wget -y
+pip install py-altdns #(By infosec_au) https://twitter.com/infosec_au?s=20 
 #------------------------------------------------------------#
 echo "Installing Findomain"
 cd ~/Broly/findomain
