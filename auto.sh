@@ -1,12 +1,14 @@
-RED='\033[0;34m'
+YELLOW='\033[0;34m'
 CYAN='\033[0;36m'
 END='\033[0m'
 
 
 QUOTES=("Grab a cup of COFFEE!"	)
 
-printf "${RED}[i]${END} ${QUOTES[$rand]}\\n"
+printf "${YELLOW}[i]${END} ${QUOTES[$rand]}\\n"
 echo
+
+pwords=/usr/share/wordlists/pwords.txt
 
 mkdir ~/recondata/automatd/$1
 mkdir ~/recondata/automatd/$1/findings
@@ -37,21 +39,33 @@ echo "Extracting subdomains from massdns.txt"
 	sed 's/A.*//' massdns.txt | sed 's/CN.*//' | sed 's/\..$//' > Subdomain_mass.txt
 echo "Removing massdns.txt" 
 	rm massdns.txt && rm allrootsubdomains.txt
+echo "Making all.txt"
+	cat *.txt | sort -u | tee -a all.txt
+echo "altdns Scanninf started"
+	altdns -i all.txt -o altdns_output.txt -w $pwords
 echo "Creating Allrootdomains.txt"
 	cat *.txt | rev | cut -d "."  -f 1,2,3 | sort -u | rev | tee -a allrootsubdomains.txt
+echo "Removing all.txt"
+	rm all.txt
+echo "Making Fresh final (all.txt)"
+	cat *.txt | sort -u | tee -a all.txt
 echo "Moving into folder _Final_"	
-	cd ~/recondata/automatd/$1/final
+	cd ~/recondata/automatd/$1/final 
 echo "Plain massdns Scanning"
-	massdns -r /usr/share/wordlists/resolvers.txt -w massdns-op.txt ~/recondata/automatd/$1/findings/allrootsubdomains.txt
+	massdns -r /usr/share/wordlists/resolvers.txt -w massdns-op.txt ~/recondata/automatd/$1/findings/all.txt
 echo "Checking for alive domains"
-	cat ~/recondata/automatd/$1/findings/allrootsubdomains.txt | sort -u | filter-resolved | httprobe -c 40 > alive.txt
+	cat ~/recondata/automatd/$1/findings/all.txt | sort -u | filter-resolved | httprobe -c 40 > alive.txt
 echo "JScanning started"
 	bash JSfileScanner.sh
 echo "fprobe Scanning started"
 	cat alive.txt | fprobe -c 40 -v | grep ":200," > fprobe200.txt
+echo "finding Subdomains using CSP"
+	cat ~/recondata/automatd/$1/findings/alive.txt | csp -c 20 > temp.txt
+	cat temp.txt | grep "rms.com" > csp_sub.txt
+	rm temp.txt
 echo "Aquatone Started"
 	cat alive.txt | aquatone -out $1
 echo "Finding CNAME"
-	cat  ~/recondata/automatd/$1/findings/allrootsubdomains.txt | xargs -n 1 -I{} host -t CNAME {} > CNAME.txt
+	cat  ~/recondata/automatd/$1/final/alive.txt | xargs -n 1 -I{} host -t CNAME {} > CNAME.txt
 echo "Scanning for CORS"
        cors.sh alive.txt > CORS.txt
