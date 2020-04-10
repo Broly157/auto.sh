@@ -2,6 +2,7 @@
 
 chmod +x auto.sh
 cp auto.sh /usr/bin
+cp pwords.txt /usr/bin
 echo "auto.sh Ready to use"
 #-------------------------------------------------------------#
 echo "Copying JSfileScanner.sh > /usr/bin (By dark_warlord14) https://twitter.com/dark_warlord14?s=20" #You can find the article related to this script here https://securityjunky.com/scanning-js-files-for-endpoint-and-secrets/ 
