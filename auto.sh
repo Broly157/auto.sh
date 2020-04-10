@@ -39,8 +39,6 @@ echo "Removing massdns.txt"
 	rm massdns.txt && rm allrootsubdomains.txt
 echo "Creating Allrootdomains.txt"
 	cat *.txt | rev | cut -d "."  -f 1,2,3 | sort -u | rev | tee -a allrootsubdomains.txt
-echo "Finding 3/4th Tier of Subdomains"
-	cat allrootsubdomains.txt | xargs -n 1 -I{} curl -s https://crt.sh/\?q\=\%.{}\&output\=json | jq -r '.[].name_value' | sed 's/\*\.//g' | sort -u | tee -a subsubdomains.txt
 echo "Moving into folder _Final_"	
 	cd ~/recondata/automatd/$1/final
 echo "Plain massdns Scanning"
