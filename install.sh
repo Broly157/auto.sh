@@ -126,6 +126,7 @@ pip3 install -r requirements.txt
 python3 setup.py install
 #-------------------------------------------------------------#
 echo "Copying Every Go tools in /usr/bin"
+cp ~/Broly/massdns*/bin/massdns /usr/bin
 cp ~/go/bin/httprobe /usr/bin
 cp ~/go/bin/fprobe /usr/bin
 cp ~/go/bin/aquatone /usr/bin
