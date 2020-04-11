@@ -41,7 +41,7 @@ echo "Removing massdns.txt"
 	rm massdns.txt && rm allrootsubdomains.txt
 echo "Making all.txt"
 	cat *.txt | sort -u | tee -a all.txt
-echo "altdns Scanninf started"
+echo "altdns Scanning started"
 	altdns -i all.txt -o altdns_output.txt -w $pwords
 echo "Creating Allrootdomains.txt"
 	cat *.txt | rev | cut -d "."  -f 1,2,3 | sort -u | rev | tee -a allrootsubdomains.txt
