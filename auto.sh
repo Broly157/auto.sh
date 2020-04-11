@@ -9,6 +9,7 @@ printf "${YELLOW}[i]${END} ${QUOTES[$rand]}\\n"
 echo
 
 pwords=~/Broly/pwords.txt
+resolver=~/Broly/massdns*/lists/resolvers.txt
 
 mkdir ~/recondata/automatd/$1
 mkdir ~/recondata/automatd/$1/findings
@@ -34,7 +35,7 @@ echo "Certspotter Scanning started"
 echo "Creating Allrootdomains.txt"
 	cat *.txt | rev | cut -d "."  -f 1,2,3 | sort -u | rev | tee -a allrootsubdomains.txt
 echo "Massdns Scanning started"
-	massdns -r ~/Broly/massdns*/lists/resolvers.txt -t A -o S allrootsubdomains.txt -w massdns.txt
+	massdns -r $resolver -t A -o S allrootsubdomains.txt -w massdns.txt
 echo "Extracting subdomains from massdns.txt"
 	sed 's/A.*//' massdns.txt | sed 's/CN.*//' | sed 's/\..$//' > Subdomain_mass.txt
 echo "Removing massdns.txt" 
@@ -52,7 +53,7 @@ echo "Making Fresh final (all.txt)"
 echo "Moving into folder _Final_"	
 	cd ~/recondata/automatd/$1/final 
 echo "Plain massdns Scanning"
-	massdns -r /usr/share/wordlists/resolvers.txt -w massdns-op.txt ~/recondata/automatd/$1/findings/all.txt
+	massdns -r $resolver -w massdns-op.txt ~/recondata/automatd/$1/findings/all.txt
 echo "Checking for alive domains"
 	cat ~/recondata/automatd/$1/findings/all.txt | sort -u | filter-resolved | httprobe -c 40 > alive.txt
 echo "JScanning started"
