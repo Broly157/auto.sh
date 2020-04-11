@@ -126,10 +126,10 @@ pip3 install -r requirements.txt
 python3 setup.py install
 #-------------------------------------------------------------#
 echo "Copying Every Go tools in /usr/bin"
-cp ~/Broly/go/bin/httprobe /usr/bin
-cp ~/Broly/go/bin/fprobe /usr/bin
-cp ~/Broly/go/bin/aquatone /usr/bin
-cp ~/Broly/go/bin/assetfinder /usr/bin
-cp ~/Broly/go/bin/subfinder /usr/bin
-cp ~/Broly/go/bin/filter-resolved /usr/bin/
+cp ~/go/bin/httprobe /usr/bin
+cp ~/go/bin/fprobe /usr/bin
+cp ~/go/bin/aquatone /usr/bin
+cp ~/go/bin/assetfinder /usr/bin
+cp ~/go/bin/subfinder /usr/bin
+cp ~/go/bin/filter-resolved /usr/bin/
 echo "Installation Completed,You are Good to Go ;)"
