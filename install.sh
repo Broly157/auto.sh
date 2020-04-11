@@ -2,7 +2,6 @@
 
 chmod +x auto.sh
 cp auto.sh /usr/bin
-cp pwords.txt /usr/bin
 echo "auto.sh Ready to use"
 mkdir ~/recondata
 mkdir ~/recondata/automatd
