@@ -12,7 +12,7 @@ cp JSfileScanner.sh /usr/bin
 #----------------------------------------------------------#
 sudo apt-get -y update
 sudo apt-get -y upgrade
-
+apt install cargo
 
 sudo apt-get install -y libcurl4-openssl-dev
 sudo apt-get install -y libssl-dev
