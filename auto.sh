@@ -59,7 +59,7 @@ echo "Checking for alive domains"
 echo "JScanning started"
 	bash JSfileScanner.sh
 echo "fprobe Scanning started"
-	cat alive.txt | fprobe -c 40 -v | grep ":200," > fprobe200.txt
+	cat alive.txt | fprobe -c 40 -v | grep ":200," | egrep -o '"(site)":"?[^,]*' | tr -d "\"" | sed 's/site\://' | tee -a fprobe200.txt
 echo "finding Subdomains using CSP"
 	cat ~/recondata/automatd/$1/findings/alive.txt | csp -c 20 > temp.txt
 	cat temp.txt | grep "$1" > csp_sub.txt
