@@ -20,7 +20,7 @@ echo "Amass Scanning started"
 echo "Findomain Scanning started"
 	findomain -t $1 -u findomain.txt
 echo "Assetfinder Scanning started"
-	assetfinder --subs-only $1 > asset.txt
+	assetfinder --subs-only $1 | tee -a asset.txt
 echo "Subfinder Scanning started"
 	subfinder -d $1 > subfinder.txt
 echo "Sublist3r Scanning started"
@@ -55,18 +55,18 @@ echo "Moving into folder _Final_"
 echo "Plain massdns Scanning"
 	massdns -r $resolver -w massdns-op.txt ~/recondata/automatd/$1/findings/all.txt
 echo "Checking for alive domains"
-	cat ~/recondata/automatd/$1/final/all.txt | sort -u | filter-resolved | httprobe -c 40 > alive.txt
+	cat ~/recondata/automatd/$1/final/all.txt | sort -u | filter-resolved | httprobe -c 40 | tee -a alive.txt
 echo "JScanning started"
 	bash JSfileScanner.sh
 echo "fprobe Scanning started"
-	cat alive.txt | fprobe -c 40 -v | grep ":200," | egrep -o '"(site)":"?[^,]*' | tr -d "\"" | sed 's/site\://' | tee -a fprobe200.txt
+	cat alive.txt | fprobe -c 40 -v | grep ":200," | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | sort -u | tee -a fprobe200.txt
 echo "finding Subdomains using CSP"
-	cat ~/recondata/automatd/$1/findings/alive.txt | csp -c 20 > temp.txt
-	cat temp.txt | grep "$1" > csp_sub.txt
+	cat ~/recondata/automatd/$1/findings/alive.txt | csp -c 20 | tee -a temp.txt
+	cat temp.txt | grep "$1" | tee -a csp_sub.txt
 	rm temp.txt
 echo "Aquatone Started"
 	cat alive.txt | aquatone -out $1
 echo "Finding CNAME"
-	cat  ~/recondata/automatd/$1/final/alive.txt | xargs -n 1 -I{} host -t CNAME {} > CNAME.txt
+	cat  ~/recondata/automatd/$1/final/alive.txt | xargs -n 1 -I{} host -t CNAME {} | tee -a CNAME.txt
 echo "Scanning for CORS"
-       cors.sh alive.txt > CORS.txt
+       cors.sh alive.txt | tee -a CORS.txt
