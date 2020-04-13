@@ -1,7 +1,8 @@
 # auto.sh
 Subdomain Enumeration
 To install the required tools use
-`bash install.sh`
+`chmod +x install.sh`
+`./install.sh`
 Usage 
 `./auto.sh "domain.com"`
 
