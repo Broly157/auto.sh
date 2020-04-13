@@ -61,7 +61,7 @@ echo "JScanning started"
 echo "fprobe Scanning started"
 	cat alive.txt | fprobe -c 40 -v | grep ":200," | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | sort -u | tee -a fprobe200.txt
 echo "finding Subdomains using CSP"
-	cat ~/recondata/automatd/$1/findings/alive.txt | csp -c 20 | tee -a temp.txt
+	cat ~/recondata/automatd/$1/final/alive.txt | csp -c 20 | tee -a temp.txt
 	cat temp.txt | grep "$1" | tee -a csp_sub.txt
 	rm temp.txt
 echo "Aquatone Started"
