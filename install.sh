@@ -1,5 +1,6 @@
 #!/bin/bash
 
+mkdir ~/Broly
 chmod +x auto.sh
 cp auto.sh /usr/bin
 echo "auto.sh Ready to use"
@@ -72,7 +73,6 @@ done
 fi
 #----------------------------------------------------------#
 echo "Now installing important Tools"
-mkdir ~/Broly
 cd ~/Broly
 echo "Istalling Amass"
 snap install amass #(By Danielmiessler) https://twitter.com/DanielMiessler?s=20 | https://twitter.com/jeff_foley?s=20 | https://twitter.com/owaspamass?s=20
