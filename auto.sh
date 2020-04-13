@@ -55,7 +55,7 @@ echo "Moving into folder _Final_"
 echo "Plain massdns Scanning"
 	massdns -r $resolver -w massdns-op.txt ~/recondata/automatd/$1/findings/all.txt
 echo "Checking for alive domains"
-	cat ~/recondata/automatd/$1/final/all.txt | sort -u | filter-resolved | httprobe -c 40 | tee -a alive.txt
+	cat ~/recondata/automatd/$1/findings/all.txt | sort -u | filter-resolved | httprobe -c 40 | tee -a alive.txt
 echo "JScanning started"
 	bash JSfileScanner.sh
 echo "fprobe Scanning started"
