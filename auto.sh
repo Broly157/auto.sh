@@ -31,7 +31,7 @@ echo "Crt.sh Scanning started"
 echo "Removing crt.txt "
         rm crt.txt
 echo "Certspotter Scanning started"
-        curl -s https://certspotter.com/api/v0/certs\?domain\=$1 |jq -r .[].dns_name[] | sed 's/[][\/$*^|@#{}~&()_:;%+"='\'',`><?!]/ /g' | grep -o '\w.*.$1' | tee  >>certspotter.txt
+        curl -s https://certspotter.com/api/v0/certs\?domain\=$1 |curl -s https://certspotter.com/api/v0/certs?domain=$1 | jq -c '.[].dns_names' | grep -o '"[^"]\+"' | tr -d '"' | sort -fu | grep "$1" | tee  >>certspotter.txt
 echo "Threatcrowd Scanning started"
         curl https://www.threatcrowd.org/searchApi/v2/domain/report/\?domain=$1 | jq '.subdomains' | sed 's/[][\/$*^|@#{}~&()_:;%+"='\'',`><?!]/ /g' | awk '{print $1}' | tee >>threatcrowd.txt
 echo "Hackertarget Scanning started"
