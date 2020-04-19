@@ -13,7 +13,6 @@ cp JSfileScanner.sh /usr/bin
 #----------------------------------------------------------#
 sudo apt-get -y update
 sudo apt-get -y upgrade
-apt install cargo
 
 sudo apt-get install -y libcurl4-openssl-dev
 sudo apt-get install -y libssl-dev
@@ -76,8 +75,6 @@ echo "Now installing important Tools"
 cd ~/Broly
 echo "Istalling Amass"
 snap install amass #(By Danielmiessler) https://twitter.com/DanielMiessler?s=20 | https://twitter.com/jeff_foley?s=20 | https://twitter.com/owaspamass?s=20
-echo "Cloning Findomain"
-git clone https://github.com/Edu4rdSHL/findomain.git #(By Edu4rdSHL) https://twitter.com/Edu4rdSHL?s=20
 echo "Installing assetfinder"
 go get -u github.com/tomnomnom/assetfinder #(By Tomnomnom) https://twitter.com/TomNomNom?s=20
 echo "Installing CSP"
