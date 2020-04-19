@@ -75,9 +75,6 @@ echo "Now installing important Tools"
 cd ~/Broly
 echo "Istalling Amass"
 snap install amass #(By Danielmiessler) https://twitter.com/DanielMiessler?s=20 | https://twitter.com/jeff_foley?s=20 | https://twitter.com/owaspamass?s=20
-echo "Installing Findomain"
-latest_tag=$(curl -s https://api.github.com/repos/Edu4rdSHL/findomain/releases/latest | jq .tag_name)
-sudo wget https://github.com/Edu4rdSHL/findomain/releases/download/${latest_tag}/findomain-linux -O /usr/bin/findomain
 echo "Installing assetfinder"
 go get -u github.com/tomnomnom/assetfinder #(By Tomnomnom) https://twitter.com/TomNomNom?s=20
 echo "Installing CSP"
@@ -103,6 +100,11 @@ curl --url https://raw.githubusercontent.com/tomnomnom/dotfiles/master/scripts/a
 #------------------------------------------------------------#
 apt install wget -y
 pip install py-altdns #(By infosec_au) https://twitter.com/infosec_au?s=20 
+#------------------------------------------------------------#
+echo "Installing Findomain"
+cd ~/Broly/findomain*
+sudo wget https://github.com/Edu4rdSHL/findomain/releases/latest/download/findomain-linux -O findomain
+chmod +x findomain
 #-------------------------------------------------------------#
 echo "Installing Sublist3r"
 cd ~/Broly/Sublist3r*
@@ -127,5 +129,6 @@ cp ~/go/bin/fprobe /usr/bin
 cp ~/go/bin/aquatone /usr/bin
 cp ~/go/bin/assetfinder /usr/bin
 cp ~/go/bin/subfinder /usr/bin
-cp ~/go/bin/filter-resolved /usr/bin/
+cp ~/go/bin/filter-resolved /usr/bin
+cp ~/Broly/findomain*/findomain /usr/bin/
 echo "Installation Completed,You are Good to Go ;)"
