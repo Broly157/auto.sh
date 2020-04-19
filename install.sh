@@ -13,7 +13,6 @@ cp JSfileScanner.sh /usr/bin
 #----------------------------------------------------------#
 sudo apt-get -y update
 sudo apt-get -y upgrade
-apt install cargo
 
 sudo apt-get install -y libcurl4-openssl-dev
 sudo apt-get install -y libssl-dev
@@ -76,8 +75,9 @@ echo "Now installing important Tools"
 cd ~/Broly
 echo "Istalling Amass"
 snap install amass #(By Danielmiessler) https://twitter.com/DanielMiessler?s=20 | https://twitter.com/jeff_foley?s=20 | https://twitter.com/owaspamass?s=20
-echo "Cloning Findomain"
-git clone https://github.com/Edu4rdSHL/findomain.git #(By Edu4rdSHL) https://twitter.com/Edu4rdSHL?s=20
+echo "Installing Findomain"
+latest_tag=$(curl -s https://api.github.com/repos/Edu4rdSHL/findomain/releases/latest | jq .tag_name)
+sudo wget https://github.com/Edu4rdSHL/findomain/releases/download/${latest_tag}/findomain-linux -O /usr/bin/findomain
 echo "Installing assetfinder"
 go get -u github.com/tomnomnom/assetfinder #(By Tomnomnom) https://twitter.com/TomNomNom?s=20
 echo "Installing CSP"
@@ -103,11 +103,6 @@ curl --url https://raw.githubusercontent.com/tomnomnom/dotfiles/master/scripts/a
 #------------------------------------------------------------#
 apt install wget -y
 pip install py-altdns #(By infosec_au) https://twitter.com/infosec_au?s=20 
-#------------------------------------------------------------#
-echo "Installing Findomain"
-cd ~/Broly/findomain*
-cargo build --release
-cp target/release/findomain /usr/bin/
 #-------------------------------------------------------------#
 echo "Installing Sublist3r"
 cd ~/Broly/Sublist3r*
