@@ -35,7 +35,7 @@ echo "Certspotter Scanning started"
 echo "Threatcrowd Scanning started"
         curl https://www.threatcrowd.org/searchApi/v2/domain/report/\?domain=$1 | jq '.subdomains' | sed 's/[][\/$*^|@#{}~&()_:;%+"='\'',`><?!]/ /g' | awk '{print $1}' | tee >>threatcrowd.txt
 echo "Hackertarget Scanning started"
-        curl https://api.hackertarget.com/hostsearch/\?q\=$1 | grep -o '\w.*$1' | tee >>hackertarget.txt
+        curl https://api.hackertarget.com/hostsearch/\?q\=$1 | cut -d "," -f 1 | tee >>hackertarget.txt
 echo "Creating Allrootdomains.txt"
         cat *.txt | rev | cut -d "."  -f 1,2,3 | sort -u | rev | tee -a allrootsubdomains.txt
 echo "Massdns Scanning started"
