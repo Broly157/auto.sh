@@ -4,6 +4,7 @@ mkdir ~/Broly
 chmod +x auto.sh
 cp auto.sh /usr/bin
 echo "auto.sh Ready to use"
+mkdir ~/Broly/findomain
 mkdir ~/recondata
 mkdir ~/recondata/automatd
 cp pwords.txt ~/Broly
