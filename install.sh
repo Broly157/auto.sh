@@ -106,8 +106,8 @@ pip install py-altdns #(By infosec_au) https://twitter.com/infosec_au?s=20
 #------------------------------------------------------------#
 echo "Installing Findomain"
 cd ~/Broly/findomain*
-cargo build --release
-cp target/release/findomain /usr/bin/
+sudo wget https://github.com/Edu4rdSHL/findomain/releases/latest/download/findomain-linux -O findomain
+chmod +x findomain
 #-------------------------------------------------------------#
 echo "Installing Sublist3r"
 cd ~/Broly/Sublist3r*
@@ -132,5 +132,6 @@ cp ~/go/bin/fprobe /usr/bin
 cp ~/go/bin/aquatone /usr/bin
 cp ~/go/bin/assetfinder /usr/bin
 cp ~/go/bin/subfinder /usr/bin
-cp ~/go/bin/filter-resolved /usr/bin/
+cp ~/go/bin/filter-resolved /usr/bin
+cp ~/Broly/findomain*/findomain /usr/bin/
 echo "Installation Completed,You are Good to Go ;)"
