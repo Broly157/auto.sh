@@ -87,7 +87,7 @@ prompt_confirm() {
   while true; do
     read -r -n 1 -p "${1:-Continue?} [y/n]: " REPLY
     case $REPLY in
-      [yY]) printf "\nStarted Cor's Scanning\n" && cors.sh alive.txt | tee -a CORS.txt && printf "\nStarting CNAME Scanning\n" && cat alive.txt | xar$
+      [yY]) printf "\nStarted Cor's Scanning\n" && cors.sh alive.txt | tee -a CORS.txt && printf "\nStarting CNAME Scanning\n" && cat alive.txt | xargs -n 1 -I{} host -t CNAME {} | tee -a CNAME.txt ; return 0
         ;;
       [nN]) echo ; return 1 ;;
       *) printf " \033[31m %s \n\033[0m" "Bruh..Only {Y/N}"
