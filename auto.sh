@@ -46,8 +46,19 @@ echo "Removing massdns.txt"
         rm massdns.txt && rm allrootsubdomains.txt
 echo "Making all.txt"
         cat *.txt | sort -u | tee -a all.txt
-#echo "altdns Scanning started"
-#       altdns -i all.txt -o altdns_output.txt -w $pwords
+prompt_confirm() {
+  while true; do
+    read -r -n 1 -p "${1:-Continue?} [y/n]: " REPLY
+    case $REPLY in
+      [yY]) printf "\nStarted altdns Scanning\n" && altdns -i all.txt -t 40 -o alt.txt -w $pwords; return 0
+        ;;
+      [nN]) echo ; return 1 ;;
+      *) printf " \033[31m %s \n\033[0m" "Bruh..Only {Y/N}"
+    esac
+  done
+}
+
+prompt_confirm "Do altdns Scanning? this is only for subdomains enumeration and takes Time depending on the target list"
 echo "Creating Allrootdomains.txt"
         cat *.txt | rev | cut -d "."  -f 1,2,3 | sort -u | rev | tee -a allrootsubdomains.txt
 echo "Removing all.txt"
@@ -72,7 +83,16 @@ echo "finding Subdomains using CSP"
         rm temp.txt
 echo "Aquatone Started"
         cat alive.txt | aquatone -out $1
-echo "Finding CNAME"
-        cat  ~/recondata/automatd/$1/final/alive.txt | xargs -n 1 -I{} host -t CNAME {} | tee -a CNAME.txt
-echo "Scanning for CORS"
-        cors.sh alive.txt | tee -a CORS.txt
+prompt_confirm() {
+  while true; do
+    read -r -n 1 -p "${1:-Continue?} [y/n]: " REPLY
+    case $REPLY in
+      [yY]) printf "\nStarted Cor's Scanning\n" && cors.sh alive.txt | tee -a CORS.txt && printf "\nStarting CNAME Scanning\n" && cat alive.txt | xar$
+        ;;
+      [nN]) echo ; return 1 ;;
+      *) printf " \033[31m %s \n\033[0m" "Bruh..Only {Y/N}"
+    esac
+  done
+}
+
+prompt_confirm "Do CNAME and COR's Scanning? This may take Time depending on the Length of alive.txt"
