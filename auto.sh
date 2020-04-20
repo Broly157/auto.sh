@@ -61,7 +61,9 @@ echo "Plain massdns Scanning"
 echo "Checking for alive domains"
         cat ~/recondata/automatd/$1/findings/all.txt | sort -u | filter-resolved | httprobe -c 40 | tee -a  alive.txt
 echo "fprobe Scanning started"
-        cat alive.txt | fprobe -c 40 -v | grep ":200," | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | sort -u | tee -a fprobe200.txt
+        mkdir fprobe && cd fprobe
+	cat ../alive.txt | fprobe -c 40 -v >>fprobe.txt && cat fprobe.txt | grep ":20" | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | sort -u | tee -a fprobe200.txt && cat fprobe.txt | grep ":30" | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | sort -u | tee -a fprobe300.txt && cat fprobe.txt | grep ":40" | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | sort -u | tee -a fprobe400.txt && cat fprobe.txt | grep ":50" | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | sort -u | tee -a fprobe500.txt
+	rm fprobe.txt && cd ../
 echo "JScanning started"
         bash JSfileScanner.sh
 echo "finding Subdomains using CSP"
