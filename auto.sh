@@ -42,7 +42,7 @@ mkdir ~/recondata/automatd/$1/findings
 mkdir ~/recondata/automatd/$1/final
 cd ~/recondata/automatd/$1/findings
 echo "${BLUE}[+] ${YELLOW}Amass Scanning started${RESET}"
-#	amass enum --passive -d $1 -o amass.txt
+	amass enum --passive -d $1 -o amass.txt
 echo "${BLUE}[+] ${YELLOW}Findomain Scanning started${RESET}"
 	findomain -t $1 -u findomain.txt
 echo "${BLUE}[+] ${YELLOW}Assetfinder Scanning started${RESET}"
