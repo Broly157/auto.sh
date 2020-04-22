@@ -106,7 +106,7 @@ echo "${BLUE}[+] ${YELLOW}Plain massdns Scanning${RESET}"
 echo "${BLUE}[+] ${YELLOW}Checking for alive domains${RESET}"
 	cat ~/recondata/automatd/$1/findings/all.txt | sort -u | filter-resolved | httprobe -c 40 | tee -a  alive.txt
 	count=$(cat alive.txt | sort -u | wc -l)
-echo "${BLUE}[+] ${MAGENTA}Found: $count Alive Subdomain's found${RESET}"
+echo "${BLUE}[+] ${MAGENTA}Found: $count Alive Subdomain's${RESET}"
 echo "${BLUE}[+] ${YELLOW}fprobe Scanning started${RESET}"
 	mkdir fprobe && cd fprobe
 	cat ../alive.txt | fprobe -c 40 -v >>fprobe.txt && cat fprobe.txt | grep ":20" | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | sort -u | tee -a fprobe200.txt && cat fprobe.txt | grep ":30" | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | sort -u | tee -a fprobe300.txt && cat fprobe.txt | grep ":40" | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | sort -u | tee -a fprobe400.txt && cat fprobe.txt | grep ":50" | grep -Eo "(http|https)://[a-zA-Z0-9./?=_-]*" | sort -u | tee -a fprobe500.txt
