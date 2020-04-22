@@ -133,3 +133,4 @@ cp ~/go/bin/subfinder /usr/bin
 cp ~/go/bin/filter-resolved /usr/bin
 cp ~/Broly/findomain*/findomain /usr/bin/
 echo "Installation Completed,You are Good to Go ;)"
+echo 'Please add your ""securitytrails_key"" in /usr/bin/auto.sh'
