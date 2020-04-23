@@ -14,6 +14,8 @@ cp JSfileScanner.sh /usr/bin
 #----------------------------------------------------------#
 sudo apt-get -y update
 sudo apt-get -y upgrade
+sudo apt install snapd
+
 
 sudo apt-get install -y libcurl4-openssl-dev
 sudo apt-get install -y libssl-dev
@@ -116,7 +118,6 @@ echo "Installing Massdns"
 cd ~/Broly/massdns*
 make 
 cp /lists/resolvers.txt /usr/share/wordlists/resolvers.txt
-cp /bin/massdns /usr/bin
 #-------------------------------------------------------------#
 echo "Installing Linkfinder"
 cd ~/Broly/LinkFinder*
@@ -124,13 +125,14 @@ pip3 install -r requirements.txt
 python3 setup.py install
 #-------------------------------------------------------------#
 echo "Copying Every Go tools in /usr/bin"
+cd
 cp ~/Broly/massdns*/bin/massdns /usr/bin
+cp ~/Broly/findomain*/findomain /usr/bin/
 cp ~/go/bin/httprobe /usr/bin
 cp ~/go/bin/fprobe /usr/bin
 cp ~/go/bin/aquatone /usr/bin
 cp ~/go/bin/assetfinder /usr/bin
 cp ~/go/bin/subfinder /usr/bin
 cp ~/go/bin/filter-resolved /usr/bin
-cp ~/Broly/findomain*/findomain /usr/bin/
 echo "Installation Completed,You are Good to Go ;)"
 echo 'Please add your ""securitytrails_key"" in /usr/bin/auto.sh'
