@@ -104,7 +104,7 @@ echo "${BLUE}[+] ${YELLOW}Moving into folder _Final_${RESET}"
 echo "${BLUE}[+] ${YELLOW}Plain massdns Scanning${RESET}"
 	massdns -r $resolver -w massdns-op.txt ~/recondata/automatd/$1/findings/all.txt
 echo "${BLUE}[+] ${YELLOW}Checking for alive domains${RESET}"
-	cat ~/recondata/automatd/$1/findings/all.txt | sort -u | filter-resolved | httprobe -c 40 | tee -a  alive.txt
+	cat ~/recondata/automatd/$1/findings/all.txt | sort -u | filter-resolved | httprobe -c 50 -p 8080,8081,8089 | tee -a  alive.txt
 	count=$(cat alive.txt | sort -u | wc -l)
 echo "${BLUE}[+] ${MAGENTA}Found: $count Alive Subdomain's${RESET}"
 echo "${BLUE}[+] ${YELLOW}fprobe Scanning started${RESET}"
