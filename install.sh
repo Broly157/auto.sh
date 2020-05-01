@@ -8,7 +8,7 @@ mkdir ~/Broly/findomain
 cp pwords.txt ~/Broly
 #-------------------------------------------------------------#
 echo "Copying JSfileScanner.sh > /usr/bin" #(By dark_warlord14) https://twitter.com/dark_warlord14?s=20 You can find the article related to this script here https://securityjunky.com/scanning-js-files-for-endpoint-and-secrets/ 
-cp JSfileScanner.sh /usr/bin
+chmod +x JSfileScanner.sh && cp JSfileScanner.sh /usr/bin
 #----------------------------------------------------------#
 sudo apt-get -y update
 sudo apt-get -y upgrade
