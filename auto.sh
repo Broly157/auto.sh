@@ -68,6 +68,8 @@ echo "${BLUE}[*] ${YELLOW}Threatcrowd Scanning started${RESET}"
 	curl https://www.threatcrowd.org/searchApi/v2/domain/report/\?domain=$1 | jq '.subdomains' | sed 's/[][\/$*^|@#{}~&()_:;%+"='\'',`><?!]/ /g' | awk '{print $1}' | tee >>threatcrowd.txt
 echo "${BLUE}[*] ${YELLOW}Hackertarget Scanning started${RESET}"
 	curl https://api.hackertarget.com/hostsearch/\?q\=$1 | cut -d "," -f 1 | tee >>hackertarget.txt
+echo "${BLUE}[*] ${YELLOW}Virustotal Scanning started${RESET}"
+        curl --silent --request GET --url "https://www.virustotal.com/vtapi/v2/domain/report?apikey=$virustotal_key&domain=$1" | jq --raw-output -r '.subdomains[]?' | sort -u  | tee -a virustotal.txt
 echo "${BLUE}[+] ${YELLOW}Creating Allrootdomains.txt${RESET}"
 	cat *.txt | rev | cut -d "."  -f 1,2,3 | sort -u | rev | tee -a allrootsubdomains.txt
 echo "${BLUE}[+] ${YELLOW}Massdns Scanning started${RESET}"
