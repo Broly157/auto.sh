@@ -12,6 +12,9 @@ BLUE=`tput setaf 4`
 MAGENTA=`tput setaf 5`
 RESET=`tput sgr0`
 
+#########
+SECONDS=0
+#########
 QUOTES=("Grab a cup of COFFEE!"	)
 
 
@@ -31,7 +34,7 @@ printf "${BLUE}[i]${RESET}${RED}${QUOTES[$rand]}${RESET}\\n"
 echo
 
 ##API KEYS##
-securitytrails_key='YOUR_API_KEY'
+securitytrails_key='Your_api_key'
 
 ##TEXT FILES##
 pwords=~/Broly/pwords.txt
@@ -56,6 +59,8 @@ echo "${BLUE}[*] ${YELLOW}Crt.sh Scanning started${RESET}"
 	cat crt.txt | rev | cut -d "."  -f 1,2,3 | sort -u | rev | tee -a crtsh.txt
 echo "${BLUE}[+] ${YELLOW}Removing crt.txt${RESET}"
 	rm crt.txt
+echo "${BLUE}[*] ${YELLOW}Rapiddns.io Scanning started${RESET}"
+        curl -s "https://rapiddns.io/subdomain/$1?full=1#result" | grep "<td><a" | cut -d '"' -f 2 | grep http | cut -d '/' -f3 | sed 's/#results//g' | sort -u | tee -a rapidns.txt
 echo "${BLUE}[*] ${YELLOW}BufferOverflow Scanning started${RESET}"
 	curl -s --request GET --url "dns.bufferover.run/dns?q=.$1&rt=5" | jq --raw-output '.FDNS_A[]' | awk '{print $1}' | sed -e 's/^.*,//g' | sort -u | tee -a bufferover.txt
 echo "${BLUE}[*] ${YELLOW}Searching in the SecurityTrails API...${RESET}"
@@ -80,19 +85,18 @@ echo "${BLUE}[+] ${YELLOW}Removing massdns.txt${RESET}"
 	rm massdns.txt && rm allrootsubdomains.txt
 echo "${BLUE}[+] ${YELLOW}Making all.txt${RESET}"
 	cat *.txt | sort -u | tee -a all.txt
-prompt_confirm() {
-  while true; do
-    read -r -n 1 -p "${1:-Continue?} [y/n]: " REPLY
-    case $REPLY in
-      [yY]) printf "\n${RED}Started altdns Scanning\n${RESET}" && altdns -i all.txt -t 30 -o alt.txt -w $pwords; return 0
-        ;;
-      [nN]) echo ; return 1 ;;
-      *) printf " \033[31m %s \n\033[0m" "Bruh..Only {Y/N}"
-    esac
-  done
-}
-
-prompt_confirm "${BLUE}[+] ${YELLOW}Do altdns Scanning? this is only for subdomains enumeration and takes Time depending on the target list${RESET}"
+echo "${BLUE}[+] ${YELLOW}Wanna do atldns Scan? just click {Y/y} or wait for 10 sec, i'll wait for 10sec's ${BLUE}{y${BLUE}}:${RESET}"
+for i in {10..1}
+do
+    read -t .1 -n 1 input
+    if [  "$input" = "y"  ]; then
+    printf "\n${RED}Altdns started \n${RESET}" && altdns -i all.txt -t 30 -o alt.txt -w $pwords
+        exit
+    elif [  "$input" = "n" ]; then
+  printf "\n Skipping Atldns scan \n"
+    fi
+    echo -ne "\n $i \r" && sleep 1;
+done
 echo "${BLUE}[+] ${YELLOW}Creating Allrootdomains.txt${RESET}"
 	cat *.txt | rev | cut -d "."  -f 1,2,3 | sort -u | rev | tee -a allrootsubdomains.txt
 echo "${BLUE}[+] ${YELLOW}Removing all.txt${RESET}"
@@ -121,21 +125,7 @@ echo "${BLUE}[+] ${YELLOW}finding Subdomains using CSP${RESET}"
 	rm temp.txt
 echo "${BLUE}[+] ${YELLOW}Aquatone Started${RESET}"
 	cat alive.txt | aquatone -out $1
-prompt_confirm() {
-  while true; do
-    read -r -n 1 -p "${1:-Continue?} [y/n]: " REPLY
-    case $REPLY in
-      [yY]) printf "\nStarted Cor's Scanning\n" && cors.sh alive.txt | tee -a CORS.txt && printf "\n${RED}Starting CNAME Scanning\n${RESET}" && cat alive.txt | xargs -n 1 -I{} host -t CNAME {} | tee -a CNAME.txt ; return 0
-        ;;
-      [nN]) echo ; return 1 ;;
-      *) printf " \033[31m %s \n\033[0m" "Bruh..Only {Y/N}"
-    esac
-  done
-}
 
-prompt_confirm "${BLUE}[+] ${YELLOW}Do CNAME and COR's Scanning? This may take Time depending on the Length of alive.txt${RESET}"
-echo ""
-echo ""
 cd ~/recondata/automatd/$1
 prompt_confirm() {
   while true; do
@@ -149,3 +139,22 @@ prompt_confirm() {
   done
 }
 prompt_confirm "${BLUE}[+] ${YELLOW}Do you want to combine every file in findings folder? if {y/Y} then you will only have one folder i.e [final] with everything${RESET}"
+
+cd final/
+prompt_confirm() {
+  while true; do
+    read -r -n 1 -p "${1:-Continue?} [y/n]: " REPLY
+    case $REPLY in
+      [yY]) printf "\nStarted Cor's Scanning\n" && cors.sh alive.txt | tee -a CORS.txt && printf "\n${RED}Starting CNAME Scanning\n${RESET}" && cat alive.txt | xargs -n 1 -I{} host -t CNAME {} | tee -a CNAME.txt ; return 0
+        ;;
+      [nN]) echo ; return 1 ;;
+      *) printf " \033[31m %s \n\033[0m" "Bruh..Only {Y/N}"
+    esac
+  done
+}
+
+prompt_confirm "${BLUE}[+] ${YELLOW}Do CNAME and COR's Scanning? This may take Time depending on the Length of alive.txt${RESET}"
+
+duration=$SECONDS
+printf "${GREEN}[+]${CYAN} Scan is completed in : $(($duration / 60)) minutes and $(($duration % 60)) seconds.${RESET}\n"
+exit
