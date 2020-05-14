@@ -94,6 +94,8 @@ echo "Installing fprobe"
 go get -u github.com/theblackturtle/fprobe #By(theblackturtle)
 echo "Installing Aquatone"
 go get github.com/michenriksen/aquatone #(BY michenriksen) https://twitter.com/michenriksen?s=20
+echo "Installinh Dnsprobe"
+go get -u -v github.com/projectdiscovery/dnsprobe #(By projectdiscovery) https://twitter.com/pdiscoveryio?s=20
 echo "Cloning Linkfinder"
 git clone https://github.com/dark-warlord14/LinkFinder #(By GerbenJavado) https://twitter.com/gerben_javado?s=20
 echo "Cloning acao"
