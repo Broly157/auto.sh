@@ -141,11 +141,14 @@ prompt_confirm() {
 prompt_confirm "${BLUE}[+] ${YELLOW}Do you want to combine every file in findings folder? if {y/Y} then you will only have one folder i.e [final] with everything${RESET}"
 
 cd final/
+echo "${BLUE}[+] ${YELLOW}CNAME Scanning Started${RESET}"
+	dnsprobe -l alive.txt -r CNAME | tee -a CNAME
+echo ""
 prompt_confirm() {
   while true; do
     read -r -n 1 -p "${1:-Continue?} [y/n]: " REPLY
     case $REPLY in
-      [yY]) printf "\nStarted Cor's Scanning\n" && cors.sh alive.txt | tee -a CORS.txt && printf "\n${RED}Starting CNAME Scanning\n${RESET}" && cat alive.txt | xargs -n 1 -I{} host -t CNAME {} | tee -a CNAME.txt ; return 0
+      [yY]) printf "\nStarted Cor's Scanning\n" && cors.sh alive.txt | tee -a CORS.txt ; return 0
         ;;
       [nN]) echo ; return 1 ;;
       *) printf " \033[31m %s \n\033[0m" "Bruh..Only {Y/N}"
@@ -153,7 +156,7 @@ prompt_confirm() {
   done
 }
 
-prompt_confirm "${BLUE}[+] ${YELLOW}Do CNAME and COR's Scanning? This may take Time depending on the Length of alive.txt${RESET}"
+prompt_confirm "${BLUE}[+] ${YELLOW}Do COR's Scanning? This may take Time depending on the Length of alive.txt${RESET}"
 
 duration=$SECONDS
 printf "${GREEN}[+]${CYAN} Scan is completed in : $(($duration / 60)) minutes and $(($duration % 60)) seconds.${RESET}\n"
