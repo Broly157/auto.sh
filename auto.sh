@@ -35,7 +35,7 @@ echo
 
 ##API KEYS##
 securitytrails_key='Your_api_key'
-
+virustotal_key='Your_api_key'
 ##TEXT FILES##
 pwords=~/Broly/pwords.txt
 resolver=~/Broly/massdns*/lists/resolvers.txt
