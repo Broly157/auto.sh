@@ -83,6 +83,8 @@ echo "${BLUE}[+] ${YELLOW}Extracting subdomains from massdns.txt${RESET}"
 	sed 's/A.*//' massdns.txt | sed 's/CN.*//' | sed 's/\..$//' | tee -a Subdomain_mass.txt
 echo "${BLUE}[+] ${YELLOW}Removing massdns.txt${RESET}"
 	rm massdns.txt && rm allrootsubdomains.txt
+echo "${BLUE}[+] ${YELLOW}Starting ShuffleDns${RESET}"
+        shuffledns -d $1 -list ~/recondata/automatd/$1/findings/chaos.txt -r ~/tools/massdns/lists/resolvers.txt -o shuffledns.txt
 echo "${BLUE}[+] ${YELLOW}Making all.txt${RESET}"
 	cat *.txt | sort -u | tee -a all.txt
 echo "${BLUE}[+] ${YELLOW}Wanna do atldns Scan? just click {Y/y} or wait for 10 sec, i'll wait for 10sec's ${BLUE}{y${BLUE}}:${RESET}"
