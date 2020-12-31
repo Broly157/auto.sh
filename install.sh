@@ -80,6 +80,8 @@ echo "Installing assetfinder"
 go get -u github.com/tomnomnom/assetfinder #(By Tomnomnom) https://twitter.com/TomNomNom?s=20
 echo "Installing CSP"
 go get -u github.com/edoverflow/csp #(By Tomnomnom) https://twitter.com/TomNomNom?s=20
+echo "Installing ShuffleDns"
+GO111MODULE=on go get -v github.com/projectdiscovery/shuffledns/cmd/shuffledns #(By pdiscoveryio) https://twitter.com/pdiscoveryio
 echo "Installing Subfinder"
 go get -v github.com/projectdiscovery/subfinder/cmd/subfinder #(By projectdiscovery)
 echo "Cloning Massdns"
