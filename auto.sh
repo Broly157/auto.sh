@@ -34,8 +34,9 @@ printf "${BLUE}[i]${RESET}${RED}${QUOTES[$rand]}${RESET}\\n"
 echo
 
 ##API KEYS##
-securitytrails_key='Your_api_key'
-virustotal_key='Your_api_key'
+securitytrails_key='Your_APIKEY'
+virustotal_key='Your_APIKEY'
+chaos_key='Your_APIKEY'
 ##TEXT FILES##
 pwords=~/Broly/pwords.txt
 resolver=~/Broly/massdns*/lists/resolvers.txt
@@ -52,11 +53,15 @@ echo "${BLUE}[+] ${YELLOW}Assetfinder Scanning started${RESET}"
 	assetfinder --subs-only $1 | tee -a asset.txt
 echo "${BLUE}[+] ${YELLOW}Subfinder Scanning started${RESET}"
 	subfinder -d $1 | tee -a subfinder.txt
+echo "${BLUE}[+] ${YELLOW}Subfinder Scanning started${RESET}"
+  chaos -key $chaos_key -d $1 -silent | tee -a chaos.txt
 echo "${BLUE}[+] ${YELLOW}Sublist3r Scanning started${RESET}"
 	python ~/Broly/Sublist3r/sublist3r.py -v -t 15 -d $1 -o sublist3r.txt
 echo "${BLUE}[*] ${YELLOW}Crt.sh Scanning started${RESET}"
 	curl -s https://crt.sh/\?q\=\%.$1\&output\=json | jq -r '.[].name_value' | sed 's/\*\.//g' | sort -u | tee -a crt.txt
 	cat crt.txt | rev | cut -d "."  -f 1,2,3 | sort -u | rev | tee -a crtsh.txt
+echo "${BLUE}[*] ${YELLOW}JLDC.me Scanning started${RESET}"
+  curl -s "https://jldc.me/anubis/subdomains/$1" | grep -Po '((http|https):\/\/)?(([\w.-]*)\.([\w]*)\.([A-z]))\w+' | anew | tee -a jldc.txt
 echo "${BLUE}[+] ${YELLOW}Removing crt.txt${RESET}"
 	rm crt.txt
 echo "${BLUE}[*] ${YELLOW}Rapiddns.io Scanning started${RESET}"
@@ -112,7 +117,8 @@ echo "${BLUE}[+] ${YELLOW}Moving into folder _Final_${RESET}"
 echo "${BLUE}[+] ${YELLOW}Plain massdns Scanning${RESET}"
 	massdns -r $resolver -w massdns-op.txt ~/recondata/automatd/$1/findings/all.txt
 echo "${BLUE}[+] ${YELLOW}Checking for alive domains${RESET}"
-	cat ~/recondata/automatd/$1/findings/all.txt | sort -u | filter-resolved | httprobe -c 50 -p 8080,8081,8089 | tee -a  alive.txt
+	cat ~/recondata/automatd/$1/findings/all.txt | sort -u | filter-resolved | httprobe -c 50 -p 8080,8081,8089 | tee  alive.txt
+  cat ~/recondata/automatd/$1/findings/all.txt | sort -u | httpx -content-length -status-code -silent | tee -a alive.txt
 	count=$(cat alive.txt | sort -u | wc -l)
 echo "${BLUE}[+] ${MAGENTA}Found: $count Alive Subdomain's${RESET}"
 echo "${BLUE}[+] ${YELLOW}fprobe Scanning started${RESET}"
@@ -125,6 +131,8 @@ echo "${BLUE}[+] ${YELLOW}finding Subdomains using CSP${RESET}"
 	cat ~/recondata/automatd/$1/final/alive.txt | csp -c 20 | tee -a  temp.txt
 	cat temp.txt | grep "$1" | tee -a csp_sub.txt
 	rm temp.txt
+echo "${BLUE}[+] ${YELLOW}Starting ShuffleDns${RESET}"
+  shuffledns -d $1 -list ~/recondata/automatd/$1/findings/all.txt -r ~/tools/massdns/lists/resolvers.txt -o shuffledns.txt
 echo "${BLUE}[+] ${YELLOW}Aquatone Started${RESET}"
 	cat alive.txt | aquatone -out $1
 
