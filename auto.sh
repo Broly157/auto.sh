@@ -109,7 +109,7 @@ echo "${BLUE}[+] ${YELLOW}Creating Allrootdomains.txt${RESET}"
 echo "${BLUE}[+] ${YELLOW}Removing all.txt${RESET}"
 	rm all.txt
 echo "${BLUE}[+] ${YELLOW}Making Fresh final (all.txt)${RESET}"
-	cat *.txt | sort -u | grep -v "*" | tee -a all.txt
+	cat *.txt | sort -u | grep -v "*" | egrep '$1' | tee -a all.txt
         count=$(cat all.txt | sort -u | wc -l)
 echo "${BLUE}[+] ${MAGENTA}Found: $count Unique Subdomain's in all.txt${RESET}"
 echo "${BLUE}[+] ${YELLOW}Moving into folder _Final_${RESET}"
