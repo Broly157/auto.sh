@@ -3,9 +3,8 @@
 mkdir ~/tools
 chmod +x auto.sh
 cp auto.sh /usr/bin
-echo "auto.sh Ready to use"
-mkdir ~/Broly/findomain
-cp pwords.txt ~/Broly
+mkdir ~/tools/findomain
+cp pwords.txt /usr/share/wordlist
 #-------------------------------------------------------------#
 echo "Copying JSfileScanner.sh > /usr/bin" #(By dark_warlord14) https://twitter.com/dark_warlord14?s=20 You can find the article related to this script here https://securityjunky.com/scanning-js-files-for-endpoint-and-secrets/ 
 chmod +x JSfileScanner.sh && cp JSfileScanner.sh /usr/bin
@@ -114,7 +113,7 @@ apt install wget -y
 pip install py-altdns #(By infosec_au) https://twitter.com/infosec_au?s=20 
 #------------------------------------------------------------#
 echo "Installing Findomain"
-cd ~/Broly/findomain*
+cd ~/tools/findomain*
 sudo wget https://github.com/Edu4rdSHL/findomain/releases/latest/download/findomain-linux -O findomain
 chmod +x findomain
 #-------------------------------------------------------------#
@@ -146,3 +145,4 @@ cp ~/go/bin/filter-resolved /usr/bin
 cp ~/tools/byp4xx* /usr/bin
 echo "Installation Completed,You are Good to Go ;)"
 echo 'Please add ""All_Your_keys"" in /usr/bin/auto.sh'
+echo "After That your auto.sh is Ready to use"
