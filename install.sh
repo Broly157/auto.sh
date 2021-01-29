@@ -13,6 +13,7 @@ chmod +x JSfileScanner.sh && cp JSfileScanner.sh /usr/bin
 sudo apt-get -y update
 sudo apt-get -y upgrade
 sudo apt install snapd
+sudo apt install nodejs
 
 
 sudo apt-get install -y libcurl4-openssl-dev
@@ -86,6 +87,8 @@ echo "Installing Dnsprobe"
 GO111MODULE=on go get -v github.com/projectdiscovery/dnsprobe
 echo "Installing Shuffledns"
 GO111MODULE=on go get -v github.com/projectdiscovery/shuffledns/cmd/shuffledns
+echo "Installing BLC"
+npm install broken-link-checker
 echo "Installing Subfinder"
 go get -v github.com/projectdiscovery/subfinder/cmd/subfinder #(By projectdiscovery)
 echo "Cloning Massdns"
