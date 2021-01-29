@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir ~/Broly
+mkdir ~/tools
 chmod +x auto.sh
 cp auto.sh /usr/bin
 echo "auto.sh Ready to use"
@@ -73,7 +73,7 @@ done
 fi
 #----------------------------------------------------------#
 echo "Now installing important Tools"
-cd ~/Broly
+cd ~/tools
 echo "Istalling Amass"
 snap install amass #(By Danielmiessler) https://twitter.com/DanielMiessler?s=20 | https://twitter.com/jeff_foley?s=20 | https://twitter.com/owaspamass?s=20
 echo "Installing assetfinder"
@@ -112,24 +112,24 @@ sudo wget https://github.com/Edu4rdSHL/findomain/releases/latest/download/findom
 chmod +x findomain
 #-------------------------------------------------------------#
 echo "Installing Sublist3r"
-cd ~/Broly/Sublist3r*
+cd ~/tools/Sublist3r*
 pip install -r requirements.txt
 echo "done"
 #-------------------------------------------------------------#
 echo "Installing Massdns"
-cd ~/Broly/massdns*
+cd ~/tools/massdns*
 make 
-cp /lists/resolvers.txt /usr/share/wordlists/resolvers.txt
+cp /lists/resolvers.txt /usr/share/wordlists
 #-------------------------------------------------------------#
 echo "Installing Linkfinder"
-cd ~/Broly/LinkFinder*
+cd ~/tools/LinkFinder*
 pip3 install -r requirements.txt
 python3 setup.py install
 #-------------------------------------------------------------#
 echo "Copying Every Go tools in /usr/bin"
 cd
-cp ~/Broly/massdns*/bin/massdns /usr/bin
-cp ~/Broly/findomain*/findomain /usr/bin/
+cp ~/tools/massdns*/bin/massdns /usr/bin
+cp ~/tools/findomain*/findomain /usr/bin/
 cp ~/go/bin/httprobe /usr/bin
 cp ~/go/bin/fprobe /usr/bin
 cp ~/go/bin/aquatone /usr/bin
@@ -137,4 +137,4 @@ cp ~/go/bin/assetfinder /usr/bin
 cp ~/go/bin/subfinder /usr/bin
 cp ~/go/bin/filter-resolved /usr/bin
 echo "Installation Completed,You are Good to Go ;)"
-echo 'Please add your ""securitytrails_key"" in /usr/bin/auto.sh'
+echo 'Please add ""All_Your_keys"" in /usr/bin/auto.sh'
