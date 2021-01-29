@@ -95,6 +95,8 @@ echo "Cloning Massdns"
 git clone https://github.com/blechschmidt/massdns.git #(By blechschmidt) 
 echo "Installing Sublist3r"
 git clone https://github.com/aboul3la/Sublist3r.git #(By aboul3la) https://twitter.com/aboul3la?s=20
+echo "Cloneing byp4xx"
+git clone https://github.com/lobuhi/byp4xx.git
 echo "Installing Httporbe"
 go get -u github.com/tomnomnom/httprobe #(By Tomnomnom) https://twitter.com/TomNomNom?s=20
 echo "Installing Filter-Resolved"
@@ -143,5 +145,6 @@ cp ~/go/bin/aquatone /usr/bin
 cp ~/go/bin/assetfinder /usr/bin
 cp ~/go/bin/subfinder /usr/bin
 cp ~/go/bin/filter-resolved /usr/bin
+cp ~/tools/byp4xx* /usr/bin
 echo "Installation Completed,You are Good to Go ;)"
 echo 'Please add ""All_Your_keys"" in /usr/bin/auto.sh'
