@@ -137,11 +137,10 @@ cd
 cp ~/tools/massdns*/bin/massdns /usr/bin
 cp ~/tools/findomain*/findomain /usr/bin/
 cp ~/go/bin/httprobe /usr/bin
-cp ~/go/bin/fprobe /usr/bin
+cp ~/go/bin/httpx /usr/bin
 cp ~/go/bin/aquatone /usr/bin
 cp ~/go/bin/assetfinder /usr/bin
 cp ~/go/bin/subfinder /usr/bin
-cp ~/go/bin/filter-resolved /usr/bin
 cp ~/tools/byp4xx* /usr/bin
 echo "Installation Completed,You are Good to Go ;)"
 echo 'Please add ""All_Your_keys"" in /usr/bin/auto.sh'
