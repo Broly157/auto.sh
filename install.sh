@@ -99,10 +99,8 @@ echo "Cloneing byp4xx"
 git clone https://github.com/lobuhi/byp4xx.git
 echo "Installing Httporbe"
 go get -u github.com/tomnomnom/httprobe #(By Tomnomnom) https://twitter.com/TomNomNom?s=20
-echo "Installing Filter-Resolved"
-go get github.com/tomnomnom/hacks/filter-resolved #(By Tomnomnom) https://twitter.com/TomNomNom?s=20
-echo "Installing fprobe"
-go get -u github.com/theblackturtle/fprobe #By(theblackturtle)
+echo "Installing Httpx"
+GO111MODULE=on go get -v github.com/projectdiscovery/httpx/cmd/httpx #By(projectdiscovery)
 echo "Installing Aquatone"
 go get github.com/michenriksen/aquatone #(BY michenriksen) https://twitter.com/michenriksen?s=20
 echo "Installinh Dnsprobe"
