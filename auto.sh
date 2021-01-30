@@ -168,7 +168,7 @@ prompt_confirm() {
   while true; do
     read -r -n 1 -p "${1:-Continue?} [y/n]: " REPLY
     case $REPLY in
-      [yY]) printf "\nStarted 400 BYpass Scanning\n" && cat 400.txt |  while read i ; do byps4xx.sh $i -c -r | egrep curl | sort -u | tee bypased400; done; done && if [ ! -s bypased400]; then echo "The tool worked but didn't Found Any Bypass" >> bypased400;else echo "You got some bypass in bypased400";fi ; return 0
+      [yY]) printf "\nStarted 400 BYpass Scanning\n" && cat 400.txt |  while read i ; do byps4xx.sh $i -c -r | tee bypased400 ; cat bypased400 | egrep curl | sort -u | tee bypased400; done; done && if [ ! -s bypased400]; then echo "The tool worked but didn't Found Any Bypass" >> bypased400;else echo "You got some bypass in bypased400";fi ; return 0
         ;;
       [nN]) echo ; return 1 ;;
       *) printf " \033[31m %s \n\033[0m" "Bruh..Only {Y/N}"
