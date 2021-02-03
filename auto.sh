@@ -162,6 +162,7 @@ echo -e ' '
 cd $final
 echo -e ' '
 echo -e "\e[5m\e[1m${BLUE}[+]\e[96m${YELLOW}Plain massdns Scanning\e[0m"
+	touch massdns-op.txt
 	massdns -r $resolver -w massdns-op.txt $final/final_all.txt
 echo -e ""
 prompt_confirm() {
