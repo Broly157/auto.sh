@@ -15,7 +15,7 @@ RESET=`tput sgr0`
 #########
 SECONDS=0
 #########
-QUOTES=("Grab a cup of COFFEE!")
+QUOTES="Grab a cup of COFFEE!"
 
 
 printf "${GREEN}
@@ -30,17 +30,17 @@ printf "${GREEN}
                         ${MAGENTA}--by Broly157
 ${RESET}"
 
-printf "${BLUE}[i]${RESET}${RED}${QUOTES[$rand]}${RESET}\\n"
+printf "${BLUE}[i]${RESET}${RED}$QUOTES${RESET}\\n"
 echo
 
 ##API KEYS##
-securitytrails_key='Your_Key'
-virustotal_key='Your_Key'
-chaos_key='Your_Key'
-gitoken='Your_Key'
+securitytrails_key='jp9CslVyzOXNi8nQ3YPD5vrvxqUupyP0'
+virustotal_key='b44bd8d74272d806556c3aae24fc009723fb93bdf18b35d3bdb609df95067d08'
+chaos_key='4fc7c0da749de6a402c5f1bcf6d3c7793806996f090ecdec0920971426e0adbe'
+gitoken='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'
 ##TEXT FILES##
-pwords=/usr/share/wordlist/pwords.txt
-resolver=/usr/share/wordlist/resolvers.txt
+pwords=/usr/share/wordlists/pwords.txt
+resolver=/usr/share/wordlists/resolvers.txt
 
 #-------------------------------------------------------------------------------------------------------#
 #Alias for Folder's
@@ -57,24 +57,22 @@ mkdir $target/findings
 mkdir $target/final
 cd $findings
 echo -e "\e[5m\e[1m${BLUE}[+]\e[96mAmass Scanning started\e[0m"
-	amass enum --passive -d $1 -o amass.txt
+	amass enum --passive -norecursive -noalts -d $1 -o amass.txt
 echo -e "\e[5m\e[1m${BLUE}[+]\e[96mFindomain Scanning started\e[0m"
 	findomain -t $1 -u findomain.txt
 echo -e "\e[5m\e[1m${BLUE}[+]\e[96mAssetfinder Scanning started\e[0m"
 	assetfinder --subs-only $1 | tee -a asset.txt
 echo -e "\e[5m\e[1m${BLUE}[+]\e[96mSubfinder Scanning started\e[0m"
-	subfinder -d $1 | tee -a subfinder.txt
+	subfinder -d $1 -recursive -silent -all -t 500 | tee -a subfinder.txt
 echo -e "\e[5m\e[1m${BLUE}[+]\e[96mChaos Scanning started\e[0m"
     	chaos -key $chaos_key -d $1 -silent | tee -a chaos.txt
 echo -e "\e[5m\e[1m${BLUE}[+]\e[96mGithub-Scanning started$\e[0m"
-	python3 ~/tools/github-search/github-subdomains.py -e -t $gitoken -d $1 | egrep '$1' | tee -a gitsub.txt
+	python3 ~/Tools/github-search/github-subdomains.py -e -t $gitoken -d $1 | egrep '$1' | tee -a gitsub.txt
 echo -e "\e[5m\e[1m${BLUE}[+]\e[96mSublist3r Scanning started$\e[0m"
-	python3 ~/tools/Sublist3r/sublist3r.py -v -t 15 -d $1 -o sublist3r.txt
+	python3 ~/Tools/Sublist3r/sublist3r.py -v -n -t 500  -d $1 -o sublist3r.txt
 echo -e "\e[5m\e[1m${BLUE}[+]\e[96mCrt.sh Scanning started\e[0m"
 	curl -s https://crt.sh/\?q\=\%.$1\&output\=json | jq -r '.[].name_value' | sed 's/\*\.//g' | sort -u | tee -a crt.txt
 	cat crt.txt | rev | cut -d "."  -f 1,2,3 | sort -u | rev | tee -a crtsh.txt ; rm crt.txt
-echo -e "\e[5m\e[1m${BLUE}[+]\e[96mJLDC.me Scanning started\e[0m"
-  	curl -s "https://jldc.me/anubis/subdomains/$1" | grep -Po '((http|https):\/\/)?(([\w.-]*)\.([\w]*)\.([A-z]))\w+' | tee -a jldc.txt
 echo -e "\e[5m\e[1m${BLUE}[+]\e[96mRapiddns.io Scanning started\e[0m"
         curl -s "https://rapiddns.io/subdomain/$1?full=1#result" | grep "<td><a" | cut -d '"' -f 2 | grep http | cut -d '/' -f3 | sed 's/#results//g' | sort -u | tee -a rapidns.txt
 echo -e "\e[5m\e[1m${BLUE}[+]\e[96mBufferOverflow Scanning started\e[0m"
@@ -83,8 +81,6 @@ echo -e "\e[5m\e[1m${BLUE}[+]\e[96mSearching in the SecurityTrails API...\e[0m"
         curl -s --request GET --url "https://api.securitytrails.com/v1/domain/$1/subdomains?apikey=$securitytrails_key" | jq --raw-output -r '.subdomains[]' | tee garbage.txt
         for i in $(cat garbage.txt); do echo $i'.'$1; done | tee -a securitytrails.txt
         rm -rf garbage.txt
-echo -e "\e[5m\e[1m${BLUE}[+]\e[96mCertspotter Scanning started\e[0m"
-	curl -s https://certspotter.com/api/v0/certs?domain=$1 | jq -c '.[].dns_names' | grep -o '"[^"]\+"' | tr -d '"' | sort -fu | grep "$1" | tee  certspotter.txt
 echo -e "\e[5m\e[1m${BLUE}[+]\e[96mThreatcrowd Scanning started\e[0m"
 	curl https://www.threatcrowd.org/searchApi/v2/domain/report/\?domain=$1 | jq '.subdomains' | sed 's/[][\/$*^|@#{}~&()_:;%+"='\'',`><?!]/ /g' | awk '{print $1}' | tee threatcrowd.txt
 echo -e "\e[5m\e[1m${BLUE}[+]\e[96mHackertarget Scanning started\e[0m"
@@ -148,7 +144,7 @@ echo -e "\e[5m\e[1m${BLUE}[+]\e[96mfinding Subdomains using CSP\e[0m"
 cd $target
 prompt_confirm() {
   while true; do
-    read -r -n 1 -p "${1:-Continue?} [y/n]: " REPLY
+    read -r -p "${1:-Continue?} [y/n]: " REPLY
     case $REPLY in
       [yY]) cat $findings/*.txt | sort -u | tee -a final/final_all.txt && rm -fr $findings/ ; return 0
         ;;
@@ -160,14 +156,22 @@ prompt_confirm() {
 prompt_confirm "${BLUE}[+] ${YELLOW}Do you want to combine every file in findings folder? if {y/Y} then you will only have one folder i.e [final] with everything${RESET}"
 echo -e ' '
 cd $final
+
+echo -e "\e[5m\e[1m${BLUE}[+]\e[96mStarting Knockpy$\e[0m"
+	knockpy $1 --no-http-code 400 404 403 500 530 -t 2 -o $final 
+
+echo -e "\e[5m\e[1m${BLUE}[+]\e[96mSubjack Scanning started for Checking Subdomain-Takover's\e[0m"
+	subjack -t 100 -timeout 30 -o subtake.txt -ssl -c ~/go/src/github.com/haccer/subjack/fingerprints.json -w final_all.txt
+
 echo -e ' '
+
 echo -e "\e[5m\e[1m${BLUE}[+]\e[96m${YELLOW}Plain massdns Scanning\e[0m"
 	touch massdns-op.txt
 	massdns -r $resolver -w massdns-op.txt $final/final_all.txt
 echo -e ""
 prompt_confirm() {
   while true; do
-    read -r -n 1 -p "${1:-Continue?} [y/n]: " REPLY
+    read -r -p "${1:-Continue?} [y/n]: " REPLY
     case $REPLY in
       [yY]) printf "\nStarted 400 BYpass Scanning\n" && cat 400.txt |  while read i ; do byps4xx.sh -c -r $i | tee bypased400 ; cat bypased400 | egrep curl | sort -u | tee bypased400; done && if [ ! -s bypased400]; then echo "The tool worked but didn't Found Any Bypass" >> bypased400;else echo "You got some bypass in bypased400";fi ; return 0
         ;;
@@ -182,7 +186,7 @@ prompt_confirm "${BLUE}[+] ${YELLOW}Do you wanna Check for 400 Bypass ? This may
 echo -e ""
 prompt_confirm() {
   while true; do
-    read -r -n 1 -p "${1:-Continue?} [y/n]: " REPLY
+    read -r -p "${1:-Continue?} [y/n]: " REPLY
     case $REPLY in
       [yY]) printf "\nScanning For Broken-Links\n" && cat alive.txt | while read i ; do broken-link-checker -rofi --filter-level 3 $i | egrep BROKEN | sort -u | tee blc ; done; return 0
         ;;
@@ -197,7 +201,7 @@ prompt_confirm "${BLUE}[+] ${YELLOW}Do you wanna Check for Broken-Link-HighJacki
 echo -e ""
 prompt_confirm() {
   while true; do
-    read -r -n 1 -p "${1:-Continue?} [y/n]: " REPLY
+    read -r -p "${1:-Continue?} [y/n]: " REPLY
     case $REPLY in
       [yY]) printf "\nStarted Cor's Scanning\n" && cors.sh alive.txt | tee Cors.txt ; return 0
         ;;
