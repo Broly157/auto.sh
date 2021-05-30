@@ -34,10 +34,10 @@ printf "${BLUE}[i]${RESET}${RED}$QUOTES${RESET}\\n"
 echo
 
 ##API KEYS##
-securitytrails_key='jp9CslVyzOXNi8nQ3YPD5vrvxqUupyP0'
-virustotal_key='b44bd8d74272d806556c3aae24fc009723fb93bdf18b35d3bdb609df95067d08'
-chaos_key='4fc7c0da749de6a402c5f1bcf6d3c7793806996f090ecdec0920971426e0adbe'
-gitoken='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'
+securitytrails_key='YOUR_API_KEY'
+virustotal_key='YOUR_API_KEY'
+chaos_key='YOUR_API_KEY'
+gitoken='YOUR_API_KEY'
 ##TEXT FILES##
 pwords=/usr/share/wordlists/pwords.txt
 resolver=/usr/share/wordlists/resolvers.txt
