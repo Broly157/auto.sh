@@ -34,7 +34,7 @@ echo
 
 mkdir js
 mkdir db
-linkf=~/tools/LinkFinder/linkfinder.py
+linkf=~/Tools/LinkFinder/linkfinder.py
 
 for i in $(cat alive.txt)
 do
