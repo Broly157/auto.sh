@@ -1,9 +1,11 @@
 #!/bin/bash
 
-mkdir ~/tools
+mkdir ~/Tools
+mkdir ~/recondata
+mkdir ~/recondata/automatd
 chmod +x auto.sh
 cp auto.sh /usr/bin
-mkdir ~/tools/findomain
+mkdir ~/Tools/findomain
 cp pwords.txt /usr/share/wordlist
 #-------------------------------------------------------------#
 echo "Copying JSfileScanner.sh > /usr/bin" #(By dark_warlord14) https://twitter.com/dark_warlord14?s=20 You can find the article related to this script here https://securityjunky.com/scanning-js-files-for-endpoint-and-secrets/ 
@@ -35,7 +37,7 @@ git clone https://github.com/nahamsec/recon_profile.git
 cd recon_profile
 cat bash_profile >> ~/.bash_profile
 source ~/.bash_profile
-cd ~/tools/
+cd ~/Tools/
 echo "done"
 
 
@@ -73,7 +75,7 @@ done
 fi
 #----------------------------------------------------------#
 echo "Now installing important Tools"
-cd ~/tools
+cd ~/Tools
 echo "Istalling Amass"
 snap install amass #(By Danielmiessler) https://twitter.com/DanielMiessler?s=20 | https://twitter.com/jeff_foley?s=20 | https://twitter.com/owaspamass?s=20
 echo "Installing assetfinder"
@@ -113,35 +115,35 @@ apt install wget -y
 pip install py-altdns #(By infosec_au) https://twitter.com/infosec_au?s=20 
 #------------------------------------------------------------#
 echo "Installing Findomain"
-cd ~/tools/findomain*
+cd ~/Tools/findomain*
 sudo wget https://github.com/Edu4rdSHL/findomain/releases/latest/download/findomain-linux -O findomain
 chmod +x findomain
 #-------------------------------------------------------------#
 echo "Installing Sublist3r"
-cd ~/tools/Sublist3r*
+cd ~/Tools/Sublist3r*
 pip install -r requirements.txt
 echo "done"
 #-------------------------------------------------------------#
 echo "Installing Massdns"
-cd ~/tools/massdns*
+cd ~/Tools/massdns*
 make 
 cp /lists/resolvers.txt /usr/share/wordlists
 #-------------------------------------------------------------#
 echo "Installing Linkfinder"
-cd ~/tools/LinkFinder*
+cd ~/Tools/LinkFinder*
 pip3 install -r requirements.txt
 python3 setup.py install
 #-------------------------------------------------------------#
 echo "Copying Every Go tools in /usr/bin"
 cd
-cp ~/tools/massdns*/bin/massdns /usr/bin
-cp ~/tools/findomain*/findomain /usr/bin/
+cp ~/Tools/massdns*/bin/massdns /usr/bin
+cp ~/Tools/findomain*/findomain /usr/bin/
 cp ~/go/bin/httprobe /usr/bin
 cp ~/go/bin/httpx /usr/bin
 cp ~/go/bin/aquatone /usr/bin
 cp ~/go/bin/assetfinder /usr/bin
 cp ~/go/bin/subfinder /usr/bin
-cp ~/tools/byp4xx* /usr/bin
+cp ~/Tools/byp4xx* /usr/bin
 echo "Installation Completed,You are Good to Go ;)"
 echo 'Please add ""All_Your_keys"" in /usr/bin/auto.sh'
 echo "After That your auto.sh is Ready to use"
