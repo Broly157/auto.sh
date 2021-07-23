@@ -92,6 +92,8 @@ echo "Installing BLC"
 npm install broken-link-checker
 echo "Installing Subfinder"
 go get -v github.com/projectdiscovery/subfinder/cmd/subfinder #(By projectdiscovery)
+echo "Installing anew"
+go get -u github.com/tomnomnom/anew
 echo "Cloning Massdns"
 git clone https://github.com/blechschmidt/massdns.git #(By blechschmidt) 
 echo "Installing Sublist3r"
