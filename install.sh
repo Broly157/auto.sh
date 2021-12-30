@@ -33,6 +33,10 @@ sudo apt-get install -y git
 sudo apt-get install -y rename
 sudo apt-get install -y xargs
 
+echo "installing Docker For you :)"
+sudo apt-get remove -y docker docker-engine docker.io
+sudo apt-get install -y docker-ce
+
 echo "installing bash_profile aliases from recon_profile"
 git clone https://github.com/nahamsec/recon_profile.git
 cd recon_profile
